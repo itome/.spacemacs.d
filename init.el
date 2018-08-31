@@ -37,7 +37,8 @@ values."
             c-c++-enable-clang-support t
             c-c++-default-mode-for-headers 'c++-mode)
      (go :variables go-use-golangci-lint t
-         :variables go-backend 'lsp)
+         :variables go-backend 'lsp
+         :variables godoc-at-point-function 'godoc-gogetdoc)
      cscope
      javascript
      java
