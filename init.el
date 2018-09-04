@@ -50,7 +50,8 @@ values."
      shell-scripts
      vimscript
      (python :variables
-             python-enable-yapf-format-on-save nil)
+             python-enable-yapf-format-on-save nil
+             python-backend 'lsp)
      common-lisp
      emacs-lisp
      plantuml
