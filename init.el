@@ -405,7 +405,7 @@ you should place your code here."
         "XX......")
       (fringe-helper-define 'git-gutter-fr:modified '(center repeated)
         "XX......")
-      (fringe-helper-define 'git-gutter-fr:deleted nil
+      (fringe-helper-define 'git-gutter-fr:deleted '(center repeated)
         "XX......")))
 
   ;; company mode
