@@ -38,11 +38,12 @@ values."
             c-c++-default-mode-for-headers 'c++-mode)
      (go :variables go-use-gometalinter t)
      cscope
-     javascript
+     (javascript :variables javascript-fmt-tool 'prettier)
      java
      react
-     typescript
-     html
+     vue
+     (typescript :variables typescript-fmt-tool 'prettier)
+     (html :variables web-fmt-tool 'prettier)
      octave
      ruby
      elixir
@@ -56,6 +57,7 @@ values."
      emacs-lisp
      plantuml
      csv
+     prettier
      ;; semantic
 
      helm
@@ -90,7 +92,6 @@ values."
                                       smart-backspace
                                       flycheck-package
                                       migemo
-                                      prettier-js
                                       editorconfig
                                       lispxmp
                                       )
@@ -529,28 +530,6 @@ you should place your code here."
     :config
     (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
       "eb" 'lispxmp))
-
-  ;; prettier
-  (use-package prettier-js
-    :config
-    (spacemacs|use-package-add-hook typescript-mode
-      :post-config
-      (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-        "=" 'prettier-js)
-      (spacemacs/set-leader-keys-for-major-mode 'typescript-tsx-mode
-        "=" 'prettier-js))
-    (spacemacs|use-package-add-hook js2-mode
-      :post-config
-      (spacemacs/set-leader-keys-for-major-mode 'js2-mode
-        "=" 'prettier-js))
-    (spacemacs|use-package-add-hook rjsx-mode
-      :post-config
-      (spacemacs/set-leader-keys-for-major-mode 'rjsx-mode
-        "=" 'prettier-js))
-    (spacemacs|use-package-add-hook web-mode
-      :post-config
-      (spacemacs/set-leader-keys-for-major-mode 'web-mode
-        "=" 'prettier-js)))
 
   ;; javascript
   (eval-after-load 'flycheck
