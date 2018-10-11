@@ -36,7 +36,6 @@ This function should only modify configuration layer settings."
    '(
      rust
      graphviz
-     emacs-lisp
      yaml
      (c-c++ :variable
             c-c++-enable-clang-support t
@@ -682,13 +681,18 @@ before packages are loaded."
   ;; language setting
   ;;
 
-  ;; javascript
-  (eval-after-load 'flycheck
-    '(custom-set-variables
-      '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))))
+  ;; emacs lisp
+  (spacemacs|use-package-add-hook emacs-lisp-mode
+    :post-config
+    (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
+      "gb" 'pop-tag-mark))
 
+  ;; javascript
   (spacemacs|use-package-add-hook js2-mode
     :post-config
+    (eval-after-load 'flycheck
+      '(custom-set-variables
+        '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))))
     (setq-default
      ;; js2-mod
      js2-basic-offset 2
