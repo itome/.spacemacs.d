@@ -34,8 +34,10 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     ;;
+     ;; languages
+     ;;
      rust
-     graphviz
      yaml
      (c-c++ :variable
             c-c++-enable-clang-support t
@@ -45,42 +47,40 @@ This function should only modify configuration layer settings."
      (javascript :variables javascript-fmt-tool 'prettier)
      java
      react
-     vue
      (typescript :variables typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
-     octave
      ruby
      elixir
      phoenix
-     shell-scripts
+     emacs-lisp
+     prettier
+     common-lisp
      vimscript
+     shell-scripts
      (python :variables
              python-enable-yapf-format-on-save nil
              python-backend 'lsp)
-     common-lisp
-     emacs-lisp
-     plantuml
-     csv
-     prettier
-     ;; semantic
 
+     ;;
+     ;; tools
+     ;;
      helm
-     org
-     (auto-completion :variables
-                      auto-completion-enable-snippets-in-popup t
-                      auto-completion-enable-help-tooltip 'manual
-                      :disabled-for markdown git)
-     better-defaults
      git
-     markdown
+     neotree
+     org
      lsp
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
      (syntax-checking :variables
                       syntax-checking-enable-tooltips nil)
      (version-control :variables
                       version-control-diff-side 'left
                       version-control-diff-tool 'git-gutter)
-     colors
-     shell
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-help-tooltip 'manual
+                      :disabled-for markdown git)
      )
 
    ;; List of additional packages that will be installed without being
@@ -91,17 +91,10 @@ This function should only modify configuration layer settings."
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
+                                      smart-backspace
                                       doom-themes
                                       solaire-mode
                                       all-the-icons
-                                      all-the-icons-dired
-                                      spaceline-all-the-icons
-                                      hlinum
-                                      smart-backspace
-                                      flycheck-package
-                                      migemo
-                                      editorconfig
-                                      lispxmp
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -235,7 +228,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
+   dotspacemacs-mode-line-theme 'all-the-icons
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -244,7 +237,7 @@ It should only modify the values of Spacemacs settings."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Hasklig"
-                               :size 12
+                               :size 13
                                :weight normal
                                :width normal)
 
@@ -500,10 +493,6 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; font ligature
   (if (fboundp 'mac-auto-operator-composition-mode)
       (mac-auto-operator-composition-mode))
-
-
-  (setq configuration-layer-elpa-archives '(("melpa" . "melpa.org/packages/")
-                                            ("org" . "orgmode.org/elpa/") ("gnu" . "elpa.gnu.org/packages/")))
   )
 
 (defun dotspacemacs/user-load ()
@@ -520,6 +509,8 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+  ;;==================================================================================================
+  ;;==================================================================================================
   ;;
   ;; emacs settings
   ;;
@@ -539,50 +530,8 @@ before packages are loaded."
   ;;==================================================================================================
   ;;==================================================================================================
   ;;
-  ;; layer settings
+  ;; UI settings
   ;;
-
-  ;; autocomplete layer
-  (spacemacs|use-package-add-hook company-mode
-    :post-config
-    (setq company-quickhelp-color-background "#3E4451"
-          company-quickhelp-color-foreground "#ABB2BF"
-          company-idle-delay 0
-          company-minimum-prefix-length 2
-          company-tooltip-margin 2))
-
-  ;; version-controll layer
-  (setq-default fringes-outside-margins t)
-  (fringe-mode '(8 . 0))
-  (use-package git-gutter-fringe
-    :commands git-gutter-mode
-    :config
-    (progn
-      ;; custom graphics that works nice with half-width fringes
-      (fringe-helper-define 'git-gutter-fr:added '(center repeated)
-        "XX......")
-      (fringe-helper-define 'git-gutter-fr:modified '(center repeated)
-        "XX......")
-      (fringe-helper-define 'git-gutter-fr:deleted '(center repeated)
-        "XX......")))
-
-  ;;==================================================================================================
-  ;;==================================================================================================
-  ;;
-  ;; keybind
-  ;;
-
-  (define-key evil-normal-state-map (kbd "SPC ]") 'spacemacs/shell-pop-ansi-term)
-  (define-key evil-normal-state-map (kbd "SPC p t") 'neotree-projectile-action)
-
-  ;;==================================================================================================
-  ;;==================================================================================================
-  ;;
-  ;;
-  ;; additional package settings
-  ;;
-
-  ;; load theme
   (use-package atom-one-dark-theme
     :init
     (load-theme 'atom-one-dark t))
@@ -599,11 +548,6 @@ before packages are loaded."
     (setq doom-neotree-file-icons t
           doom-neotree-line-spacing 4))
 
-  (use-package hlinum
-    :config
-    (hlinum-activate)
-    (setq linum-format " %4d  "))
-
   (use-package solaire-mode
     :init
     (add-hook 'after-change-major-mode-hook #'turn-on-solaire-mode)
@@ -611,25 +555,11 @@ before packages are loaded."
     (add-hook 'after-revert-hook #'turn-on-solaire-mode)
     (add-hook 'minibuffer-setup-hook #'solaire-mode-in-minibuffer))
 
-  (use-package all-the-icons-dired
-    :init (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
-
-  ;; all-the-icons
-  (use-package all-the-icons
-    :init
-    (add-to-list 'all-the-icons-icon-alist
-                 '("\\.tsx$" all-the-icons-fileicon "tsx" :height 1.0 :v-adjust -0.1 :face all-the-icons-purple)))
-
-  (use-package spaceline-all-the-icons
-    :after spaceline
-    :config
-    (spaceline-all-the-icons-theme)
+  (with-eval-after-load 'spaceline-all-the-icons
     (setq spaceline-all-the-icons-icon-set-modified 'circle)
     (setq spaceline-all-the-icons-icon-set-git-ahead 'commit)
     (setq spaceline-all-the-icons-highlight-file-name t)
     (setq spaceline-responsive nil)
-    (setq spaceline-all-the-icons-icon-set-flycheck-slim 'outline)
-    (setq spaceline-all-the-icons-separator-type 'cup)
     (spaceline-toggle-all-the-icons-eyebrowse-workspace-off)
     (spaceline-toggle-all-the-icons-minor-modes-off)
     (spaceline-toggle-all-the-icons-projectile-off)
@@ -637,6 +567,44 @@ before packages are loaded."
     (spaceline-toggle-all-the-icons-vc-icon-off)
     (spaceline-toggle-all-the-icons-window-number-off))
 
+  (with-eval-after-load 'all-the-icons
+    (add-to-list 'all-the-icons-icon-alist
+                 '("\\.tsx$" all-the-icons-fileicon "tsx" :height 1.0 :v-adjust -0.1 :face all-the-icons-purple))
+    )
+
+  ;;==================================================================================================
+  ;;==================================================================================================
+  ;;
+  ;; keybind
+  ;;
+
+  (define-key evil-normal-state-map (kbd "SPC ]") 'spacemacs/shell-pop-ansi-term)
+  (define-key evil-normal-state-map (kbd "SPC p t") 'neotree-projectile-action)
+
+  (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
+    "gb" 'pop-tag-mark)
+  (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+    "gb" 'tern-pop-find-definition)
+  (spacemacs/set-leader-keys-for-major-mode 'rjsx-mode
+    "gb" 'tern-pop-find-definition)
+  (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
+    "gg" 'tide-jump-to-definition)
+  (spacemacs/set-leader-keys-for-major-mode 'go-mode
+    "gb" 'pop-tag-mark)
+
+  ;;==================================================================================================
+  ;;==================================================================================================
+  ;;
+  ;; additional package settings
+  ;;
+
+  ;; smart backspace setting
+  (use-package smart-backspace
+    :config
+    (define-key evil-insert-state-map [?\C-?] 'smart-backspace)
+    (define-key key-translation-map [?\C-h] [?\C-?]))
+
+  ;; auto-save-settings
   (use-package auto-save-buffers-enhanced
     :config
     (setq auto-save-buffers-enhanced-interval 0.4
@@ -645,35 +613,18 @@ before packages are loaded."
           auto-save-buffers-enhanced-quiet-save-p t)
     (auto-save-buffers-enhanced t))
 
-  (use-package migemo
+  ;; git-gutter-settings
+  (use-package git-gutter-fringe
+    :commands git-gutter-mode
     :config
-    (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
-    (setq migemo-command "cmigemo")
-    (setq migemo-options '("-q" "--emacs"))
-    (setq migemo-user-dictionary nil)
-    (setq migemo-coding-system 'utf-8)
-    (setq migemo-regex-dictionary nil)
-    (migemo-init)
-    (with-eval-after-load "helm"
-      (helm-migemo-mode t)))
-
-  ;; smart backspace setting
-  (use-package smart-backspace
-    :config
-    (define-key evil-insert-state-map [?\C-?] 'smart-backspace)
-    (define-key key-translation-map [?\C-h] [?\C-?]))
-
-  ;; editor config
-  (use-package editorconfig
-    :ensure t
-    :config
-    (editorconfig-mode 1)
-    (add-to-list 'editorconfig-indentation-alist
-                 '(jsx-mode js2-basic-offset)
-                 '(rjsx-mode js2-basic-offset)))
-
-  ;; junk file
-  (setq open-junk-file-format "~/Projects/junk/%Y/%m/%Y-%m-%d-%H%M%S.")
+    (progn
+      ;; custom graphics that works nice with half-width fringes
+      (fringe-helper-define 'git-gutter-fr:added '(center repeated)
+        "XX......")
+      (fringe-helper-define 'git-gutter-fr:modified '(center repeated)
+        "XX......")
+      (fringe-helper-define 'git-gutter-fr:deleted '(center repeated)
+        "XX......")))
 
   ;;==================================================================================================
   ;;==================================================================================================
@@ -681,15 +632,8 @@ before packages are loaded."
   ;; language setting
   ;;
 
-  ;; emacs lisp
-  (spacemacs|use-package-add-hook emacs-lisp-mode
-    :post-config
-    (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
-      "gb" 'pop-tag-mark))
-
   ;; javascript
-  (spacemacs|use-package-add-hook js2-mode
-    :post-config
+  (with-eval-after-load 'js2-mode
     (eval-after-load 'flycheck
       '(custom-set-variables
         '(flycheck-disabled-checkers '(javascript-jshint javascript-jscs))))
@@ -708,48 +652,19 @@ before packages are loaded."
      web-mode-markup-indent-offset 2
      web-mode-css-indent-offset 2
      web-mode-code-indent-offset 2
-     web-mode-attr-indent-offset 2)
-    (spacemacs/set-leader-keys-for-major-mode 'js2-mode
-      "gb" 'tern-pop-find-definition)
-    (spacemacs/set-leader-keys-for-major-mode 'rjsx-mode
-      "gb" 'tern-pop-find-definition))
+     web-mode-attr-indent-offset 2))
 
   ;; typescript
-  (spacemacs|use-package-add-hook typescript-tsx-mode
-    (setq typescript-indent-level 2)
-    (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-      "gg" 'tide-jump-to-definition))
+  (with-eval-after-load 'typescript-tsx-mode
+    (setq typescript-indent-level 2))
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-tsx-mode))
 
   ;; go
-  (spacemacs|use-package-add-hook go-mode
-    :post-config
+  (with-eval-after-load 'go-mode
     (setq flycheck-gometalinter-disable-all t
           flycheck-gometalinter-enable-linters '("golint")
           gofmt-command "goimports"
-          godoc-at-point-function `godoc-gogetdoc)
-    (spacemacs/set-leader-keys-for-major-mode 'go-mode
-      "g b" 'pop-tag-mark))
-
-  ;; plantuml setting
-  (spacemacs|use-package-add-hook plantuml
-    (setq plantuml-jar-path "/home/takeshi/ProgramFiles/plantuml.jar"
-          plantuml-output-type "png"))
-
-  ;; c-c++
-  (setq semanticdb-find-default-throttle '(file))
-  (add-hook 'c-mode-hook
-            (lambda ()
-              (clang-format-bindings)))
-  (add-hook 'c++-mode-hook
-            (lambda ()
-              (clang-format-bindings)))
-  (defun clang-format-bindings ()
-    (define-key evil-normal-state-map (kbd "SPC m =") 'clang-format-buffer)
-    (define-key evil-normal-state-map (kbd ", =") 'clang-format-buffer))
-
-  ;; markdown
-  (add-hook 'markdown-mode-hook 'spacemacs/toggle-truncate-lines-off)
+          godoc-at-point-function `godoc-gogetdoc))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -759,18 +674,18 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (toml-mode racer lsp-vue flycheck-rust cargo rust-mode yasnippet-snippets yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package unfill toc-org tide tagedit symon string-inflection spaceline-all-the-icons solaire-mode smeargle smart-backspace slime-company slim-mode shell-pop seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocop rspec-mode robe rjsx-mode restart-emacs rbenv rake rainbow-mode rainbow-identifiers rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode prettier-js popwin plantuml-mode pippel pipenv pip-requirements persp-mode password-generator paradox overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file ob-elixir neotree nameless mwim mvn multi-term move-text mmm-mode minitest migemo meghanada maven-test-mode markdown-toc magit-svn magit-gitflow lsp-ui lsp-python lsp-javascript-typescript lsp-java lsp-go lorem-ipsum livid-mode live-py-mode lispxmp link-hint json-navigator json-mode js2-refactor js-doc insert-shebang indent-guide importmagic impatient-mode hungry-delete hlinum hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-cscope helm-company helm-c-yasnippet helm-ag groovy-mode groovy-imports graphviz-dot-mode gradle-mode google-translate google-c-style golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rtags flycheck-pos-tip flycheck-package flycheck-mix flycheck-gometalinter flycheck-credo flycheck-bashate flx-ido fish-mode fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help ensime emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-themes doom-modeline disaster diminish diff-hl define-word dactyl-mode cython-mode csv-mode counsel-projectile company-web company-tern company-statistics company-shell company-rtags company-quickhelp company-lsp company-go company-emacs-eclim company-c-headers company-anaconda common-lisp-snippets column-enforce-mode color-identifiers-mode clean-aindent-mode clang-format chruby centered-cursor-mode bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile all-the-icons-dired alchemist aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(package-selected-packages
+     (quote
+      (yasnippet-snippets slime-company helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-tern company-statistics company-shell company-rtags company-quickhelp company-lsp company-go company-emacs-eclim company-c-headers company-anaconda common-lisp-snippets auto-yasnippet ac-ispell auto-complete yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toml-mode toc-org tide tern tagedit symon string-inflection spaceline-all-the-icons solaire-mode smeargle smart-backspace slime slim-mode shell-pop seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocop rspec-mode robe rjsx-mode restart-emacs rbenv rake rainbow-delimiters racer pyvenv pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements persp-mode password-generator paradox overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file ob-elixir neotree nameless mvn multi-term move-text minitest meghanada maven-test-mode magit-svn magit-gitflow lsp-ui lsp-python lsp-javascript-typescript lsp-java lsp-go lorem-ipsum livid-mode live-py-mode link-hint json-navigator json-mode js2-refactor js-doc insert-shebang indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-cscope helm-ag groovy-mode groovy-imports gradle-mode google-translate google-c-style golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ font-lock+ flycheck-rust flycheck-rtags flycheck-pos-tip flycheck-mix flycheck-gometalinter flycheck-credo flycheck-bashate flx-ido fish-mode fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help ensime emmet-mode elisp-slime-nav editorconfig eclim dumb-jump dotenv-mode doom-themes doom-modeline disaster diminish diff-hl define-word dactyl-mode cython-mode counsel-projectile column-enforce-mode clean-aindent-mode clang-format chruby centered-cursor-mode cargo bundler browse-at-remote auto-highlight-symbol auto-compile anaconda-mode alchemist aggressive-indent ace-window ace-link ace-jump-helm-line))))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   )
+  )
