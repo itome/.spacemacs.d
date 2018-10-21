@@ -556,10 +556,10 @@ before packages are loaded."
     (add-hook 'minibuffer-setup-hook #'solaire-mode-in-minibuffer))
 
   (with-eval-after-load 'spaceline-all-the-icons
-    (setq spaceline-all-the-icons-icon-set-modified 'circle)
-    (setq spaceline-all-the-icons-icon-set-git-ahead 'commit)
-    (setq spaceline-all-the-icons-highlight-file-name t)
-    (setq spaceline-responsive nil)
+    (setq spaceline-all-the-icons-icon-set-modified 'circle
+          spaceline-all-the-icons-icon-set-git-ahead 'commit
+          spaceline-all-the-icons-highlight-file-name t
+          spaceline-all-the-icons-separator-type 'cup)
     (spaceline-toggle-all-the-icons-eyebrowse-workspace-off)
     (spaceline-toggle-all-the-icons-minor-modes-off)
     (spaceline-toggle-all-the-icons-projectile-off)
