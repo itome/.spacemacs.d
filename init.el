@@ -7,6 +7,8 @@
 This function should only modify configuration layer settings."
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
+
+
    ;; `+distribution'. For now available distributions are `spacemacs-base'
    ;; or `spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
@@ -47,12 +49,10 @@ This function should only modify configuration layer settings."
          go-use-gometalinter t
          gofmt-command "goimports")
      cscope
-     (javascript :variables
-                 javascript-fmt-tool 'prettier)
+     (javascript :variables javascript-fmt-tool 'prettier)
      java
      react
-     (typescript :variables
-                 typescript-fmt-tool 'prettier)
+     (typescript :variables typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
      ruby
      elixir
