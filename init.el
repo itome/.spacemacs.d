@@ -63,6 +63,7 @@ This function should only modify configuration layer settings."
      vimscript
      shell-scripts
      haskell
+     dart
      (python :variables
              python-enable-yapf-format-on-save nil)
 
@@ -73,7 +74,8 @@ This function should only modify configuration layer settings."
      git
      neotree
      org
-     lsp
+     (lsp :variables
+          lsp-ui-sideline-enable nil)
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -497,6 +499,9 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;; font ligature
   (if (fboundp 'mac-auto-operator-composition-mode)
       (mac-auto-operator-composition-mode))
+
+  (add-to-list 'load-path "~/.spacemacs.d/local/")
+  (add-to-list 'custom-theme-load-path "~/.spacemacs.d/local/")
   )
 
 (defun dotspacemacs/user-load ()
@@ -518,9 +523,6 @@ before packages are loaded."
   ;;
   ;; emacs settings
   ;;
-
-  (add-to-list 'load-path "~/.spacemacs.d/local/")
-  (add-to-list 'custom-theme-load-path "~/.spacemacs.d/local/")
 
   ;; don't create backup files
   (setq make-backup-files nil
@@ -580,6 +582,11 @@ before packages are loaded."
                  '("\\.tsx$" all-the-icons-fileicon "tsx" :height 1.0 :v-adjust -0.1 :face all-the-icons-purple))
     )
 
+  (with-eval-after-load 'helm
+    (defun helm-persistent-action-display-window (&optional split-onewindow)
+      (with-helm-window
+        (setq helm-persistent-action-display-window (get-mru-window)))))
+
   ;;==================================================================================================
   ;;==================================================================================================
   ;;
@@ -617,7 +624,7 @@ before packages are loaded."
   ;; auto-save-settings
   (use-package auto-save-buffers-enhanced
     :config
-    (setq auto-save-buffers-enhanced-interval 0.4
+    (setq auto-save-buffers-enhanced-interval 1
           auto-save-buffers-enhanced-include-regexps '(".+")
           auto-save-buffers-enhanced-exclude-regexps '("^not-save-file" "\\.ignore$")
           auto-save-buffers-enhanced-quiet-save-p t)
@@ -690,7 +697,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci haskell-mode company-cabal cmm-mode yasnippet-snippets yapfify yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toml-mode toc-org tide tagedit symon string-inflection sql-indent spaceline-all-the-icons solaire-mode smeargle smart-backspace slime-company slim-mode shell-pop seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocop rspec-mode robe rjsx-mode restart-emacs rbenv rake rainbow-delimiters racer pyvenv pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements persp-mode password-generator paradox overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file ob-elixir neotree nameless mvn multi-term move-text minitest meghanada maven-test-mode magit-svn magit-gitflow lsp-ui lsp-rust lsp-python lsp-javascript-typescript lsp-java lsp-go lorem-ipsum livid-mode live-py-mode link-hint json-snatcher json-reformat json-navigator json-mode js2-refactor js-doc insert-shebang indent-guide importmagic impatient-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-cscope helm-company helm-c-yasnippet helm-ag groovy-mode groovy-imports gradle-mode google-translate google-c-style golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ fuzzy font-lock+ flycheck-rust flycheck-rtags flycheck-pos-tip flycheck-mix flycheck-gometalinter flycheck-credo flycheck-bashate flx-ido fish-mode fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help ensime emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-themes doom-modeline disaster diminish diff-hl define-word dactyl-mode cython-mode cquery counsel-projectile company-web company-tern company-statistics company-shell company-rtags company-quickhelp company-lsp company-go company-emacs-eclim company-c-headers company-anaconda common-lisp-snippets column-enforce-mode clean-aindent-mode clang-format chruby centered-cursor-mode ccls cargo bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile alchemist aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (lsp-dart dart-mode yasnippet-snippets yapfify yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toml-mode toc-org tide tagedit symon string-inflection sql-indent spaceline-all-the-icons solaire-mode smeargle smart-backspace slime-company slim-mode shell-pop seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocop rspec-mode robe rjsx-mode restart-emacs rbenv rake rainbow-delimiters racer pyvenv pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements persp-mode password-generator paradox overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file ob-elixir neotree nameless mvn multi-term move-text minitest meghanada maven-test-mode magit-svn magit-gitflow lsp-ui lsp-rust lsp-python lsp-javascript-typescript lsp-java lsp-go lorem-ipsum livid-mode live-py-mode link-hint json-snatcher json-reformat json-navigator json-mode js2-refactor js-doc insert-shebang indent-guide importmagic impatient-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-cscope helm-company helm-c-yasnippet helm-ag haskell-snippets groovy-mode groovy-imports gradle-mode google-translate google-c-style golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ fuzzy font-lock+ flycheck-rust flycheck-rtags flycheck-pos-tip flycheck-mix flycheck-haskell flycheck-gometalinter flycheck-credo flycheck-bashate flx-ido fish-mode fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help ensime emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-themes doom-modeline disaster diminish diff-hl define-word dactyl-mode cython-mode cquery counsel-projectile company-web company-tern company-statistics company-shell company-rtags company-quickhelp company-lsp company-go company-ghci company-emacs-eclim company-cabal company-c-headers company-anaconda common-lisp-snippets column-enforce-mode cmm-mode clean-aindent-mode clang-format chruby centered-cursor-mode ccls cargo bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile alchemist aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
