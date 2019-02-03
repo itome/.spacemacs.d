@@ -7,8 +7,6 @@
 This function should only modify configuration layer settings."
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
-
-
    ;; `+distribution'. For now available distributions are `spacemacs-base'
    ;; or `spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
@@ -31,63 +29,47 @@ This function should only modify configuration layer settings."
    ;; If non-nil layers with lazy install support are lazy installed.
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '("~/.spacemacs.d/private/")
+   dotspacemacs-configuration-layer-path '()
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     ;;
-     ;; languages
-     ;;
      rust
      yaml
-     sql
-     (c-c++ :variable
-            c-c++-enable-clang-support t
-            c-c++-default-mode-for-headers 'c++-mode)
      (go :variables
          go-use-gometalinter t
          gofmt-command "goimports")
-     cscope
      (javascript :variables javascript-fmt-tool 'prettier)
-     java
      react
      (typescript :variables typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
-     ruby
      elixir
      phoenix
-     emacs-lisp
      prettier
-     common-lisp
-     vimscript
      shell-scripts
      haskell
-     dart
-     (python :variables
-             python-enable-yapf-format-on-save nil)
+     emacs-lisp
+     common-lisp
 
-     ;;
-     ;; tools
-     ;;
-     helm
+     ivy
+     (auto-completion
+      :variables
+      auto-completion-enable-snippets-in-popup t
+      auto-completion-enable-help-tooltip 'manual
+      :disabled-for markdown git)
+     (version-control
+      :variables
+      version-control-diff-side 'left
+      version-control-diff-tool 'git-gutter)
+     (syntax-checking
+      :variables
+      syntax-checking-enable-tooltips nil)
+     treemacs
+     better-defaults
      git
-     neotree
+     markdown
+     multiple-cursors
      org
-     (lsp :variables
-          lsp-ui-sideline-enable nil)
-     (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom)
-     (syntax-checking :variables
-                      syntax-checking-enable-tooltips nil)
-     (version-control :variables
-                      version-control-diff-side 'left
-                      version-control-diff-tool 'git-gutter)
-     (auto-completion :variables
-                      auto-completion-enable-snippets-in-popup t
-                      auto-completion-enable-help-tooltip 'manual
-                      :disabled-for markdown git)
      )
 
    ;; List of additional packages that will be installed without being
@@ -99,8 +81,6 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
                                       smart-backspace
-                                      doom-themes
-                                      solaire-mode
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -224,8 +204,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(farmhouse-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(farmhouse-dark)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -234,7 +213,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme 'all-the-icons
+   dotspacemacs-mode-line-theme '(doom :separator wave :separator-scale 1)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -301,7 +280,7 @@ It should only modify the values of Spacemacs settings."
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
    ;; (default 'cache)
-   dotspacemacs-auto-save-file-location 'cache
+   dotspacemacs-auto-save-file-location 'nil
 
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
@@ -349,12 +328,12 @@ It should only modify the values of Spacemacs settings."
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-active-transparency 90
+   dotspacemacs-active-transparency 100
 
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's inactive or deselected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-inactive-transparency 90
+   dotspacemacs-inactive-transparency 100
 
    ;; If non-nil show the titles of transient states. (default t)
    dotspacemacs-show-transient-state-title t
@@ -407,7 +386,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
-   dotspacemacs-enable-server nil
+   dotspacemacs-enable-server t
 
    ;; Set the emacs server socket location.
    ;; If nil, uses whatever the Emacs default is, otherwise a directory path
@@ -442,7 +421,7 @@ It should only modify the values of Spacemacs settings."
    ;; %z - mnemonics of buffer, terminal, and keyboard coding systems
    ;; %Z - like %z, but including the end-of-line format
    ;; (default "%I@%S")
-   dotspacemacs-frame-title-format "%I@%S"
+   dotspacemacs-frame-title-format ""
 
    ;; Format specification for setting the icon title format
    ;; (default nil - same as frame-title-format)
@@ -478,30 +457,13 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  (setq ns-command-modifier (quote meta))
-  (setq ns-alternate-modifier (quote super))
-
-  ;; Japanese font
-  (set-fontset-font t 'japanese-jisx0208 (font-spec :family "Source Han Sans"))
-
-  ;; title bar
-  (setq frame-title-format "%b")
-
-  ;; line spacing
-  (setq-default line-spacing 4)
-
-  (setq-default cursor-in-non-selected-windows nil)
-
-  ;; not fold in right edge
-  (setq-default truncate-lines t
-                truncate-partial-width-windows t)
-
-  ;; font ligature
-  (if (fboundp 'mac-auto-operator-composition-mode)
-      (mac-auto-operator-composition-mode))
 
   (add-to-list 'load-path "~/.spacemacs.d/local/")
   (add-to-list 'custom-theme-load-path "~/.spacemacs.d/local/")
+  (setq-default truncate-lines t
+                truncate-partial-width-windows t)
+  (if (fboundp 'mac-auto-operator-composition-mode)
+      (mac-auto-operator-composition-mode))
   )
 
 (defun dotspacemacs/user-load ()
@@ -517,12 +479,9 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-
   ;;==================================================================================================
-  ;;==================================================================================================
-  ;;
   ;; emacs settings
-  ;;
+  ;;==================================================================================================
 
   ;; don't create backup files
   (setq make-backup-files nil
@@ -533,65 +492,9 @@ before packages are loaded."
   ;; diable tilde
   (spacemacs/toggle-vi-tilde-fringe-off)
 
-  (defalias 'split-window-right 'evil-window-vsplit)
-  (defalias 'split-window-below 'evil-window-split)
-
   ;;==================================================================================================
-  ;;==================================================================================================
-  ;;
-  ;; UI settings
-  ;;
-  (use-package atom-one-dark-theme
-    :init
-    (load-theme 'atom-one-dark t))
-
-  (use-package doom-themes
-    :init
-    (doom-themes-neotree-config)
-    (setq neo-banner-message nil
-          neo-show-updir-line nil
-          neo-auto-indent-point nil
-          neo-vc-integration nil
-          neo-mode-line-type 'none
-          neo-smart-open nil)
-    :config
-    (setq doom-neotree-file-icons t
-          doom-neotree-line-spacing 4))
-
-  (use-package solaire-mode
-    :init
-    (add-hook 'after-change-major-mode-hook #'turn-on-solaire-mode)
-    (add-hook 'ediff-prepare-buffer-hook #'solaire-mode)
-    (add-hook 'after-revert-hook #'turn-on-solaire-mode)
-    (add-hook 'minibuffer-setup-hook #'solaire-mode-in-minibuffer))
-
-  (with-eval-after-load 'spaceline-all-the-icons
-    (setq spaceline-all-the-icons-icon-set-modified 'circle
-          spaceline-all-the-icons-icon-set-git-ahead 'commit
-          spaceline-all-the-icons-highlight-file-name t
-          spaceline-all-the-icons-separator-type 'cup)
-    (spaceline-toggle-all-the-icons-eyebrowse-workspace-off)
-    (spaceline-toggle-all-the-icons-minor-modes-off)
-    (spaceline-toggle-all-the-icons-projectile-off)
-    (spaceline-toggle-all-the-icons-dedicated-off)
-    (spaceline-toggle-all-the-icons-vc-icon-off)
-    (spaceline-toggle-all-the-icons-window-number-off))
-
-  (with-eval-after-load 'all-the-icons
-    (add-to-list 'all-the-icons-icon-alist
-                 '("\\.tsx$" all-the-icons-fileicon "tsx" :height 1.0 :v-adjust -0.1 :face all-the-icons-purple))
-    )
-
-  (with-eval-after-load 'helm
-    (defun helm-persistent-action-display-window (&optional split-onewindow)
-      (with-helm-window
-        (setq helm-persistent-action-display-window (get-mru-window)))))
-
-  ;;==================================================================================================
-  ;;==================================================================================================
-  ;;
   ;; keybind
-  ;;
+  ;;==================================================================================================
 
   (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
     "gb" 'pop-tag-mark)
@@ -606,14 +509,13 @@ before packages are loaded."
   (spacemacs/set-leader-keys-for-major-mode 'go-mode
     "gb" 'pop-tag-mark)
 
-  (spacemacs/set-leader-keys "]" 'spacemacs/shell-pop-ansi-term)
-  (spacemacs/set-leader-keys "p t" 'neotree-projectile-action)
+  ;;==================================================================================================
+  ;; UI settings
+  ;;==================================================================================================
 
-  ;;==================================================================================================
-  ;;==================================================================================================
-  ;;
-  ;; additional package settings
-  ;;
+  (use-package atom-one-dark-theme
+    :init (load-theme 'atom-one-dark t))
+
 
   ;; smart backspace setting
   (use-package smart-backspace
@@ -630,24 +532,9 @@ before packages are loaded."
           auto-save-buffers-enhanced-quiet-save-p t)
     (auto-save-buffers-enhanced t))
 
-  ;; git-gutter-settings
-  (use-package git-gutter-fringe
-    :commands git-gutter-mode
-    :config
-    (progn
-      ;; custom graphics that works nice with half-width fringes
-      (fringe-helper-define 'git-gutter-fr:added '(center repeated)
-        "XX......")
-      (fringe-helper-define 'git-gutter-fr:modified '(center repeated)
-        "XX......")
-      (fringe-helper-define 'git-gutter-fr:deleted '(center repeated)
-        "XX......")))
-
   ;;==================================================================================================
-  ;;==================================================================================================
-  ;;
   ;; language setting
-  ;;
+  ;;==================================================================================================
 
   ;; web
   (with-eval-after-load 'web-mode
@@ -681,7 +568,8 @@ before packages are loaded."
     (setq flycheck-gometalinter-disable-all t
           flycheck-gometalinter-enable-linters '("golint")
           gofmt-command "goimports"
-          godoc-at-point-function `godoc-gogetdoc)))
+          godoc-at-point-function `godoc-gogetdoc))
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -697,7 +585,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (lsp-dart dart-mode yasnippet-snippets yapfify yaml-mode xterm-color ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toml-mode toc-org tide tagedit symon string-inflection sql-indent spaceline-all-the-icons solaire-mode smeargle smart-backspace slime-company slim-mode shell-pop seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocop rspec-mode robe rjsx-mode restart-emacs rbenv rake rainbow-delimiters racer pyvenv pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements persp-mode password-generator paradox overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file ob-elixir neotree nameless mvn multi-term move-text minitest meghanada maven-test-mode magit-svn magit-gitflow lsp-ui lsp-rust lsp-python lsp-javascript-typescript lsp-java lsp-go lorem-ipsum livid-mode live-py-mode link-hint json-snatcher json-reformat json-navigator json-mode js2-refactor js-doc insert-shebang indent-guide importmagic impatient-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-rtags helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-cscope helm-company helm-c-yasnippet helm-ag haskell-snippets groovy-mode groovy-imports gradle-mode google-translate google-c-style golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ fuzzy font-lock+ flycheck-rust flycheck-rtags flycheck-pos-tip flycheck-mix flycheck-haskell flycheck-gometalinter flycheck-credo flycheck-bashate flx-ido fish-mode fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help ensime emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-themes doom-modeline disaster diminish diff-hl define-word dactyl-mode cython-mode cquery counsel-projectile company-web company-tern company-statistics company-shell company-rtags company-quickhelp company-lsp company-go company-ghci company-emacs-eclim company-cabal company-c-headers company-anaconda common-lisp-snippets column-enforce-mode cmm-mode clean-aindent-mode clang-format chruby centered-cursor-mode ccls cargo bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile alchemist aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (farmhouse-theme yasnippet-snippets yaml-mode ws-butler writeroom-mode winum which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toml-mode toc-org tide tagedit symon string-inflection spaceline-all-the-icons smex smeargle smart-backspace slime-company slim-mode scss-mode sass-mode rjsx-mode restart-emacs request rainbow-delimiters racer pug-mode prettier-js popwin persp-mode pcre2el password-generator paradox overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file ob-elixir nameless mwim move-text mmm-mode markdown-toc magit-svn magit-gitflow lorem-ipsum livid-mode link-hint json-navigator json-mode js2-refactor js-doc ivy-yasnippet ivy-xref ivy-purpose ivy-hydra insert-shebang indent-guide impatient-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-make haskell-snippets google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rust flycheck-pos-tip flycheck-mix flycheck-haskell flycheck-gometalinter flycheck-credo flycheck-bashate flx-ido fish-mode fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish diff-hl define-word counsel-projectile counsel-css company-web company-tern company-statistics company-shell company-quickhelp company-go company-ghci company-cabal common-lisp-snippets column-enforce-mode cmm-mode clean-aindent-mode centered-cursor-mode cargo browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile ample-theme alchemist aggressive-indent ace-link ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
