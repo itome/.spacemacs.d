@@ -57,13 +57,11 @@ This function should only modify configuration layer settings."
       auto-completion-enable-snippets-in-popup t
       auto-completion-enable-help-tooltip 'manual
       :disabled-for markdown git)
-     (version-control
-      :variables
-      version-control-diff-side 'left
-      version-control-diff-tool 'git-gutter)
-     (syntax-checking
-      :variables
-      syntax-checking-enable-tooltips nil)
+     (version-control :variables
+                      version-control-diff-side 'left
+                      version-control-diff-tool 'git-gutter)
+     (syntax-checking :variables
+                      syntax-checking-enable-tooltips nil)
      treemacs
      better-defaults
      git
@@ -213,7 +211,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(doom :separator wave :separator-scale 1)
+   dotspacemacs-mode-line-theme '(doom)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -532,6 +530,10 @@ before packages are loaded."
           auto-save-buffers-enhanced-quiet-save-p t)
     (auto-save-buffers-enhanced t))
 
+  ;; treemacs-all-the-icons
+  (with-eval-after-load 'treemacs
+    (setq treemacs-no-png-images t))
+
   ;;==================================================================================================
   ;; language setting
   ;;==================================================================================================
@@ -585,7 +587,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (farmhouse-theme yasnippet-snippets yaml-mode ws-butler writeroom-mode winum which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toml-mode toc-org tide tagedit symon string-inflection spaceline-all-the-icons smex smeargle smart-backspace slime-company slim-mode scss-mode sass-mode rjsx-mode restart-emacs request rainbow-delimiters racer pug-mode prettier-js popwin persp-mode pcre2el password-generator paradox overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file ob-elixir nameless mwim move-text mmm-mode markdown-toc magit-svn magit-gitflow lorem-ipsum livid-mode link-hint json-navigator json-mode js2-refactor js-doc ivy-yasnippet ivy-xref ivy-purpose ivy-hydra insert-shebang indent-guide impatient-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-make haskell-snippets google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rust flycheck-pos-tip flycheck-mix flycheck-haskell flycheck-gometalinter flycheck-credo flycheck-bashate flx-ido fish-mode fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish diff-hl define-word counsel-projectile counsel-css company-web company-tern company-statistics company-shell company-quickhelp company-go company-ghci company-cabal common-lisp-snippets column-enforce-mode cmm-mode clean-aindent-mode centered-cursor-mode cargo browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile ample-theme alchemist aggressive-indent ace-link ac-ispell))))
+    (wgrep smex ivy-yasnippet ivy-xref ivy-purpose ivy-hydra counsel-css yasnippet-snippets yaml-mode ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill treemacs-projectile treemacs-evil toml-mode toc-org tide tagedit symon string-inflection spaceline-all-the-icons smeargle smart-backspace slime-company slim-mode scss-mode sass-mode rjsx-mode restart-emacs rainbow-delimiters racer pug-mode prettier-js popwin persp-mode pcre2el password-generator paradox overseer orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets org-brain open-junk-file ob-elixir nameless mwim move-text mmm-mode markdown-toc magit-svn magit-gitflow lorem-ipsum livid-mode link-hint json-navigator json-mode js2-refactor js-doc insert-shebang indent-guide impatient-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-hoogle helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rust flycheck-pos-tip flycheck-mix flycheck-haskell flycheck-gometalinter flycheck-credo flycheck-bashate flx-ido fish-mode fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish diff-hl define-word counsel-projectile company-web company-tern company-statistics company-shell company-quickhelp company-go company-ghci company-cabal common-lisp-snippets column-enforce-mode cmm-mode clean-aindent-mode centered-cursor-mode cargo browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile alchemist aggressive-indent ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -79,6 +79,7 @@
   `(fringe ((t (:background ,atom-one-dark-bg))))
   `(region ((t (:background ,atom-one-dark-gray))))
   `(highlight ((t (:background ,atom-one-dark-gray))))
+  `(lazy-highlight ((t (:background ,atom-one-dark-gray))))
   `(hl-line ((t (:background ,atom-one-dark-bg-hl))))
   `(vertical-border ((t (:background ,atom-one-dark-border :foreground ,atom-one-dark-border))))
   `(secondary-selection ((t (:background ,atom-one-dark-bg-1))))
