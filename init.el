@@ -34,7 +34,6 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     rust
      yaml
      (go :variables
          go-use-gometalinter t
@@ -543,6 +542,13 @@ before packages are loaded."
 
   (use-package company-box
     :hook (company-mode . company-box-mode))
+
+  ;; treemacs-all-the-icons
+  (with-eval-after-load 'treemacs
+    (setq treemacs-no-png-images t)
+    (define-key evil-treemacs-state-map (kbd "pd")  #'treemacs-remove-project-from-workspace)
+    (define-key evil-treemacs-state-map (kbd "pa") #'treemacs-add-project-to-workspace)
+    (define-key evil-treemacs-state-map (kbd "pr") #'treemacs-rename-project))
 
   ;;==================================================================================================
   ;; Language setting
