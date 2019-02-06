@@ -130,6 +130,7 @@
   `(company-preview-common ((t (:foreground "lightgray" :background nil :underline t))))
   `(company-scrollbar-bg ((t (:background "#2E3441"))))
   `(company-scrollbar-fg ((t (:background "#3E4451"))))
+  `(company-box-selection ((t (:foreground "#ABB2BF" :background "#3E4451"))))
 
   ;; flymake
   `(flymake-error ((t (:underline (:color ,atom-one-dark-red-1 :style wave)))))
