@@ -34,14 +34,19 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     lsp
+     (lsp :variables
+          lsp-navigation 'peek)
      yaml
      (go :variables
          go-use-gometalinter t
          gofmt-command "goimports")
-     (javascript :variables javascript-fmt-tool 'prettier)
+     (javascript :variables
+                 javascript-backend 'lsp
+                 javascript-fmt-tool 'prettier)
      react
-     (typescript :variables typescript-fmt-tool 'prettier)
+     (typescript :variables
+                 typescript-backend 'lsp
+                 typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
      dart
      elixir
