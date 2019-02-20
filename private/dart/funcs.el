@@ -32,7 +32,7 @@
   (if (configuration-layer/layer-used-p 'lsp)
       (progn
         (spacemacs|add-company-backends
-          :backends company-lsp
+          :backends company-capf
           :modes dart-mode
           :append-hooks nil
           :call-hooks t)
