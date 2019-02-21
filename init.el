@@ -604,6 +604,10 @@ before packages are loaded."
   ;; common-lisp
   (with-eval-after-load 'common-lisp-mode
     (load (expand-file-name "~/.roswell/helper.el")))
+  (use-package slime-repl-ansi-color
+    :config
+    (with-eval-after-load 'common-lisp-mode
+      (slime-repl-ansi-on)))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
