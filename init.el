@@ -89,6 +89,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages '(
                                       company-box
                                       smart-backspace
+                                      switch-buffer-functions
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -556,12 +557,23 @@ before packages are loaded."
     :config
     (company-box-all-the-icons-setup))
 
-  ;; treemacs-all-the-icons
+  ;; treemacs
   (with-eval-after-load 'treemacs
     (setq treemacs-no-png-images t)
     (define-key evil-treemacs-state-map (kbd "pd")  #'treemacs-remove-project-from-workspace)
     (define-key evil-treemacs-state-map (kbd "pa") #'treemacs-add-project-to-workspace)
     (define-key evil-treemacs-state-map (kbd "pr") #'treemacs-rename-project))
+
+  ;; git-gutter
+  (with-eval-after-load 'git-gutter
+    (fringe-helper-define 'git-gutter-fr:added '(center repeated)
+      "XX......")
+    (fringe-helper-define 'git-gutter-fr:modified '(center repeated)
+      "XX......")
+    (fringe-helper-define 'git-gutter-fr:deleted '(center repeated)
+      "XX......")
+    (add-hook 'switch-buffer-functions
+              (lambda (prev cur) (git-gutter:update-all-windows))))
 
   ;;==================================================================================================
   ;; Language setting
