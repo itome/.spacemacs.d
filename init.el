@@ -58,6 +58,8 @@ This function should only modify configuration layer settings."
      common-lisp
      (rust :variables
            rust-backend 'lsp)
+     (clojure :variables
+              clojure-enable-clj-refactor t)
      docker
 
      helm
@@ -551,11 +553,16 @@ before packages are loaded."
 
   (use-package company-box
     :hook (company-mode . company-box-mode)
-    :config (setq company-box-backends-colors nil))
-
-  (use-package company-box-all-the-icons
     :config
-    (company-box-all-the-icons-setup))
+    (setq company-box-backends-colors nil)
+
+  ;; helm
+  (with-eval-after-load 'helm
+    (defun helm-persistent-action-display-window (&optional split-onewindow)
+      "Return the window that will be used for persistent action.
+       If SPLIT-ONEWINDOW is non-`nil' window is split in persistent action."
+      (with-helm-window
+        (setq helm-persistent-action-display-window (get-mru-window)))))
 
   ;; treemacs
   (with-eval-after-load 'treemacs
@@ -614,7 +621,7 @@ before packages are loaded."
           godoc-at-point-function `godoc-gogetdoc))
 
   ;; common-lisp
-  (with-eval-after-load 'common-lisp-mode
+  (with-eval-after-load 'lisp-mode
     (load (expand-file-name "~/.roswell/helper.el")))
   (use-package slime-repl-ansi-color
     :config
