@@ -16,14 +16,12 @@
         web-mode
         prettier-js
         smartparens
-        lsp-mode
-        (lsp-vue :requires lsp-mode)
         ))
 
 (defun vue/post-init-company ()
   "backend specific"
   (spacemacs|add-company-backends
-    :backends (company-files company-capf)
+    :backends (company-files company-lsp)
     :modes vue-mode
     :variables
     company-minimum-prefix-length 1)

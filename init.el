@@ -44,6 +44,7 @@ This function should only modify configuration layer settings."
                  javascript-backend 'lsp
                  javascript-fmt-tool 'prettier)
      react
+     vue
      (typescript :variables
                  typescript-backend 'lsp
                  typescript-fmt-tool 'prettier)

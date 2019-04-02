@@ -18,4 +18,6 @@
 
 (defun spacemacs//vue-setup-lsp-mode ()
   "Setup lsp mode"
-  (setq lsp-highlight-symbol-at-point nil))
+  (if (configuration-layer/layer-used-p 'lsp)
+      (lsp)
+    (message "`lsp' layer is not installed, please add `lsp' layer to your dotfile.")))
