@@ -16,26 +16,16 @@
         web-mode
         prettier-js
         smartparens
+        lsp-mode
         ))
 
 (defun vue/post-init-company ()
   "backend specific"
   (spacemacs|add-company-backends
-    :backends (company-files company-lsp)
+    :backends company-lsp
     :modes vue-mode
-    :variables
-    company-minimum-prefix-length 1)
+    :variables company-minimum-prefix-length 2)
   (company-mode))
-
-(defun vue/init-lsp-vue ()
-  (use-package lsp-vue
-    :config
-    (progn
-      (add-hook 'vue-mode-hook #'lsp-vue-enable)
-      (spacemacs/declare-prefix-for-mode 'vue-mode "mg" "goto")
-      (spacemacs/set-leader-keys-for-major-mode 'vue-mode
-        "gg" 'lsp-ui-peek-find-definitions
-        "gr" 'lsp-ui-peek-find-references))))
 
 (defun vue/pre-init-prettier-js ()
   (add-to-list 'spacemacs--prettier-modes 'vue-mode))
@@ -49,7 +39,11 @@
 (defun vue/post-init-web-mode ()
   (define-derived-mode vue-mode web-mode "vue")
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
-  (add-hook 'vue-mode-hook #'spacemacs//vue-setup-web-mode))
+  (add-hook 'vue-mode-hook #'spacemacs//vue-setup-web-mode)
+  (spacemacs/declare-prefix-for-mode 'vue-mode "mg" "goto")
+  (spacemacs/set-leader-keys-for-major-mode 'vue-mode
+    "gg" 'lsp-ui-peek-find-definitions
+    "gr" 'lsp-ui-peek-find-references))
 
 (defun vue/post-init-flycheck ()
   (spacemacs/enable-flycheck 'vue-mode))
