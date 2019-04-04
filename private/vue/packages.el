@@ -40,10 +40,7 @@
   (define-derived-mode vue-mode web-mode "vue")
   (add-to-list 'auto-mode-alist '("\\.vue\\'" . vue-mode))
   (add-hook 'vue-mode-hook #'spacemacs//vue-setup-web-mode)
-  (spacemacs/declare-prefix-for-mode 'vue-mode "mg" "goto")
-  (spacemacs/set-leader-keys-for-major-mode 'vue-mode
-    "gg" 'lsp-ui-peek-find-definitions
-    "gr" 'lsp-ui-peek-find-references))
+  (spacemacs/declare-prefix-for-mode 'vue-mode "mg" "goto"))
 
 (defun vue/post-init-flycheck ()
   (spacemacs/enable-flycheck 'vue-mode))
