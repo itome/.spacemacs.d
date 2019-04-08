@@ -47,7 +47,7 @@ This function should only modify configuration layer settings."
      react
      vue
      (typescript :variables
-                 typescript-backend 'lsp
+                 typescript-backend 'tide
                  typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
      dart
