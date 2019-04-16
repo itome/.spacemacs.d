@@ -50,7 +50,9 @@ This function should only modify configuration layer settings."
                  typescript-backend 'tide
                  typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
-     dart
+     (dart :variables
+           dart-sdk-path "~/flutter/bin/cache/dart-sdk/"
+           dart-analysis-server t)
      elixir
      phoenix
      prettier
