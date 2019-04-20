@@ -36,7 +36,8 @@ This function should only modify configuration layer settings."
    '(python
      sql
      (lsp :variables
-          lsp-navigation 'peek)
+          lsp-navigation 'peek
+          lsp-ui-sideline-enable nil)
      yaml
      (go :variables
          go-use-gometalinter t
@@ -50,7 +51,7 @@ This function should only modify configuration layer settings."
                  typescript-backend 'tide
                  typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
-     (dart :variables
+     (itome-dart :variables
            dart-sdk-path "~/flutter/bin/cache/dart-sdk/"
            dart-analysis-server t)
      elixir
