@@ -40,7 +40,6 @@ This function should only modify configuration layer settings."
           lsp-ui-sideline-enable t)
      yaml
      (go :variables
-         go-backend 'lsp
          go-use-gometalinter t
          gofmt-command "goimports")
      (javascript :variables
