@@ -636,8 +636,6 @@ before packages are loaded."
           godoc-at-point-function `godoc-gogetdoc))
 
   ;; common-lisp
-  (with-eval-after-load 'lisp-mode
-    (load (expand-file-name "~/.roswell/helper.el")))
   (use-package slime-repl-ansi-color
     :config
     (with-eval-after-load 'common-lisp-mode
