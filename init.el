@@ -33,7 +33,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(python
+   '(
      sql
      (lsp :variables
           lsp-navigation 'peek
@@ -48,12 +48,14 @@ This function should only modify configuration layer settings."
      react
      vue
      (typescript :variables
-                 typescript-backend 'tide
+                 typescript-backend 'lsp
                  typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
      (itome-dart :variables
            dart-sdk-path "~/flutter/bin/cache/dart-sdk/"
            dart-analysis-server t)
+     (python :variables
+             python-backend 'lsp)
      elixir
      phoenix
      prettier
@@ -240,8 +242,8 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Hasklig"
-                               :size 13
+   dotspacemacs-default-font '("Source Code Pro for Powerline"
+                               :size 24
                                :weight normal
                                :width normal)
 
