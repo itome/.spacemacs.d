@@ -68,6 +68,9 @@ This function should only modify configuration layer settings."
      (scala :variables
             scala-auto-insert-asterisk-in-comments t
             scala-auto-start-ensime t)
+     (itome-swift :variables
+                  swift-sourcekit-lsp-executable "~/OSS/sourcekit-lsp/.build/x86_64-apple-macosx/release/sourcekit-lsp"
+                  swift-sourcekit-toolchain-path "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain")
      docker
 
      helm
