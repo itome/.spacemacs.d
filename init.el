@@ -598,6 +598,19 @@ before packages are loaded."
     (add-hook 'switch-buffer-functions
               (lambda (prev cur) (git-gutter:update-all-windows))))
 
+  (with-eval-after-load 'spaceline-all-the-icons
+    (setq spaceline-all-the-icons-icon-set-modified 'circle)
+    (setq spaceline-all-the-icons-icon-set-git-ahead 'commit)
+    (setq spaceline-all-the-icons-highlight-file-name t)
+    (setq spaceline-responsive nil)
+    (setq spaceline-all-the-icons-icon-set-flycheck-slim 'outline)
+    (spaceline-toggle-all-the-icons-eyebrowse-workspace-off)
+    (spaceline-toggle-all-the-icons-minor-modes-off)
+    (spaceline-toggle-all-the-icons-projectile-off)
+    (spaceline-toggle-all-the-icons-dedicated-off)
+    (spaceline-toggle-all-the-icons-vc-icon-off)
+    (spaceline-toggle-all-the-icons-window-number-off))
+
   ;;==================================================================================================
   ;; Language setting
   ;;==================================================================================================
