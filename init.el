@@ -598,6 +598,7 @@ before packages are loaded."
     (add-hook 'switch-buffer-functions
               (lambda (prev cur) (git-gutter:update-all-windows))))
 
+  ;; spaceline-all-the-icons
   (with-eval-after-load 'spaceline-all-the-icons
     (setq spaceline-all-the-icons-icon-set-modified 'circle)
     (setq spaceline-all-the-icons-icon-set-git-ahead 'commit)
@@ -610,6 +611,18 @@ before packages are loaded."
     (spaceline-toggle-all-the-icons-dedicated-off)
     (spaceline-toggle-all-the-icons-vc-icon-off)
     (spaceline-toggle-all-the-icons-window-number-off))
+
+  ;; lsp-mode
+  (with-eval-after-load 'lsp-ui
+    (spacemacs/lsp-define-key
+     lsp-ui-peek-mode-map
+     "C-h" #'lsp-ui-peek--select-prev-file
+     "C-j" #'lsp-ui-peek--select-next
+     "C-k" #'lsp-ui-peek--select-prev
+     "C-l" #'lsp-ui-peek--select-next-file))
+  (with-eval-after-load 'lsp
+    (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+      "gb" #'lsp-ui-peek-jump-backward))
 
   ;;==================================================================================================
   ;; Language setting
