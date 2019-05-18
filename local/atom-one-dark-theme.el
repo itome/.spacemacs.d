@@ -36,6 +36,7 @@
                    ("atom-one-dark-fg"       . (if ,256color "color-248" "#ABB2BF"))
                    ("atom-one-dark-bg"       . (if ,256color "color-235" "#282C34"))
                    ("atom-one-dark-bg-1"     . (if ,256color "color-234" "#121417"))
+                   ("atom-one-dark-bg-2"     . "#2E3441")
                    ("atom-one-dark-bg-hl"    . (if ,256color "color-236" "#2C323C"))
                    ("atom-one-dark-gutter"   . (if ,256color "color-239" "#4B5363"))
                    ("atom-one-dark-mono-1"   . (if ,256color "color-248" "#ABB2BF"))
@@ -99,6 +100,15 @@
   `(font-lock-variable-name-face ((t (:foreground ,atom-one-dark-red-1))))
   `(font-lock-warning-face ((t (:foreground ,atom-one-dark-mono-3 :bold t))))
 
+  ;; lsp
+  `(lsp-ui-peek-peek ((t (:background ,atom-one-dark-bg-2))))
+  `(lsp-ui-peek-list ((t (:background ,atom-one-dark-bg-2))))
+  `(lsp-ui-peek-highlight ((t (:foreground ,atom-one-dark-black :background ,atom-one-dark-silver))))
+  `(lsp-ui-peek-filename ((t (:foreground ,atom-one-dark-blue))))
+  `(lsp-ui-peek-selection ((t (:foreground ,atom-one-dark-orange-2 :background ,atom-one-dark-gray))))
+  `(lsp-ui-peek-header ((t (:foreground ,atom-one-dark-fg :background ,atom-one-dark-black))))
+  `(lsp-ui-peek-footer ((t (:foreground ,atom-one-dark-fg :background ,atom-one-dark-black))))
+
   ;; mode-line
   `(mode-line ((t (:background ,atom-one-dark-black :foreground ,atom-one-dark-silver :box (:color ,atom-one-dark-border :line-width 1)))))
   `(mode-line-buffer-id ((t (:weight bold))))
@@ -121,16 +131,15 @@
   `(ace-jump-face-foreground ((t (:foreground ,atom-one-dark-red-1 :background ,atom-one-dark-bg-1 :inverse-video nil))))
 
   ;; company-mode
-  `(company-tooltip ((t (:foreground "#ABB2BF" :background "#2E3441"))))
-  `(company-tooltip-annotation ((t (:foreground "#61AFEF" :background "#2E3441"))))
-  `(company-tooltip-selection ((t (:foreground "#ABB2BF" :background "#3E4451"))))
-  `(company-tooltip-annotation-selection ((t (:foreground "#61AFEF" :background "#3E4451"))))
-  `(company-tooltip-common ((t (:foreground "#ABB2BF" :background "#2E3441"))))
-  `(company-tooltip-common-selection ((t (:foreground "white" :background "#3E4451"))))
-  `(company-preview-common ((t (:foreground "lightgray" :background nil :underline t))))
-  `(company-scrollbar-bg ((t (:background "#2E3441"))))
-  `(company-scrollbar-fg ((t (:background "#3E4451"))))
-  `(company-box-selection ((t (:foreground "#ABB2BF" :background "#3E4451"))))
+  `(company-tooltip ((t (:foreground ,atom-one-dark-fg :background ,atom-one-dark-bg-2))))
+  `(company-tooltip-annotation ((t (:foreground ,atom-one-dark-blue :background ,atom-one-dark-bg-2))))
+  `(company-tooltip-selection ((t (:foreground ,atom-one-dark-orange-2 :background ,atom-one-dark-gray))))
+  `(company-tooltip-annotation-selection ((t (:foreground ,atom-one-dark-blue :background ,atom-one-dark-gray))))
+  `(company-tooltip-common ((t (:foreground ,atom-one-dark-fg :background ,atom-one-dark-bg-2))))
+  `(company-tooltip-common-selection ((t (:foreground ,atom-one-dark-orange-2 :background ,atom-one-dark-gray))))
+  `(company-preview-common ((t (:foreground ,atom-one-dark-fg :background nil :underline t))))
+  `(company-scrollbar-bg ((t (:background ,atom-one-dark-bg-2))))
+  `(company-scrollbar-fg ((t (:background ,atom-one-dark-gray))))
 
   ;; flymake
   `(flymake-error ((t (:underline (:color ,atom-one-dark-red-1 :style wave)))))

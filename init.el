@@ -70,6 +70,9 @@ This function should only modify configuration layer settings."
      (scala :variables
             scala-auto-insert-asterisk-in-comments t
             scala-auto-start-ensime t)
+     (itome-swift :variables
+                  swift-sourcekit-lsp-executable "~/OSS/sourcekit-lsp/.build/x86_64-apple-macosx/release/sourcekit-lsp"
+                  swift-sourcekit-toolchain-path "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain")
      docker
 
      helm
@@ -234,7 +237,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(vim-powerline)
+   dotspacemacs-mode-line-theme '(all-the-icons :separator slant)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -596,6 +599,32 @@ before packages are loaded."
       "XX......")
     (add-hook 'switch-buffer-functions
               (lambda (prev cur) (git-gutter:update-all-windows))))
+
+  ;; spaceline-all-the-icons
+  (with-eval-after-load 'spaceline-all-the-icons
+    (setq spaceline-all-the-icons-icon-set-modified 'circle)
+    (setq spaceline-all-the-icons-icon-set-git-ahead 'commit)
+    (setq spaceline-all-the-icons-highlight-file-name t)
+    (setq spaceline-responsive nil)
+    (setq spaceline-all-the-icons-icon-set-flycheck-slim 'outline)
+    (spaceline-toggle-all-the-icons-eyebrowse-workspace-off)
+    (spaceline-toggle-all-the-icons-minor-modes-off)
+    (spaceline-toggle-all-the-icons-projectile-off)
+    (spaceline-toggle-all-the-icons-dedicated-off)
+    (spaceline-toggle-all-the-icons-vc-icon-off)
+    (spaceline-toggle-all-the-icons-window-number-off))
+
+  ;; lsp-mode
+  (with-eval-after-load 'lsp-ui
+    (spacemacs/lsp-define-key
+     lsp-ui-peek-mode-map
+     "C-h" #'lsp-ui-peek--select-prev-file
+     "C-j" #'lsp-ui-peek--select-next
+     "C-k" #'lsp-ui-peek--select-prev
+     "C-l" #'lsp-ui-peek--select-next-file))
+  (with-eval-after-load 'lsp
+    (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+      "gb" #'lsp-ui-peek-jump-backward))
 
   ;;==================================================================================================
   ;; Language setting
