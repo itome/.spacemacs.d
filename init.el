@@ -37,7 +37,8 @@ This function should only modify configuration layer settings."
      sql
      (lsp :variables
           lsp-navigation 'peek
-          lsp-ui-sideline-enable t)
+          lsp-ui-doc-enable nil
+          lsp-ui-sideline-enable nil)
      yaml
      (go :variables
          go-use-gometalinter t
@@ -663,6 +664,10 @@ before packages are loaded."
           flycheck-gometalinter-enable-linters '("golint")
           gofmt-command "goimports"
           godoc-at-point-function `godoc-gogetdoc))
+
+  ;; dart
+  (use-package lsp-dart-analysis-server
+    :after lsp-mode)
 
   ;; common-lisp
   (use-package slime-repl-ansi-color
