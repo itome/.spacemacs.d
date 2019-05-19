@@ -37,8 +37,8 @@ This function should only modify configuration layer settings."
      sql
      (lsp :variables
           lsp-navigation 'peek
-          lsp-ui-doc-enable nil
-          lsp-ui-sideline-enable nil)
+          lsp-ui-doc-enable t
+          lsp-ui-sideline-enable t)
      yaml
      (go :variables
          go-use-gometalinter t
