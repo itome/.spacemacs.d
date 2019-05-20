@@ -665,10 +665,6 @@ before packages are loaded."
           gofmt-command "goimports"
           godoc-at-point-function `godoc-gogetdoc))
 
-  ;; dart
-  (use-package lsp-dart-analysis-server
-    :after lsp-mode)
-
   ;; common-lisp
   (use-package slime-repl-ansi-color
     :config
