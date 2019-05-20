@@ -42,6 +42,7 @@ This function should only modify configuration layer settings."
      yaml
      (go :variables
          go-use-gometalinter t
+         go-backend 'lsp
          gofmt-command "goimports")
      (javascript :variables
                  javascript-backend 'lsp
@@ -246,8 +247,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro for Powerline"
-                               :size 24
+   dotspacemacs-default-font '("Source Code Pro"
                                :weight normal
                                :width normal)
 
