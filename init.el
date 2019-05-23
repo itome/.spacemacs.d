@@ -626,6 +626,9 @@ before packages are loaded."
     (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
       "gb" #'lsp-ui-peek-jump-backward))
 
+  (with-eval-after-load 'lsp-mode
+    (setq company-lsp-cache-candidates 'auto))
+
   ;;==================================================================================================
   ;; Language setting
   ;;==================================================================================================
@@ -663,6 +666,10 @@ before packages are loaded."
           flycheck-gometalinter-enable-linters '("golint")
           gofmt-command "goimports"
           godoc-at-point-function `godoc-gogetdoc))
+
+  ;; dart
+  (with-eval-after-load 'dart-mode
+    (setq lsp-dart-sdk-dir "~/Downloads/dart-sdk"))
 
   ;; common-lisp
   (use-package slime-repl-ansi-color
