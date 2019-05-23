@@ -107,6 +107,7 @@ This function should only modify configuration layer settings."
                                       company-box
                                       smart-backspace
                                       switch-buffer-functions
+                                      exec-path-from-shell
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -518,6 +519,10 @@ before packages are loaded."
 
   ;; diable tilde
   (spacemacs/toggle-vi-tilde-fringe-off)
+
+  ;; load env variables
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
 
   ;;==================================================================================================
   ;; keybind
