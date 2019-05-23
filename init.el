@@ -569,12 +569,6 @@ before packages are loaded."
           auto-save-buffers-enhanced-quiet-save-p t)
     (auto-save-buffers-enhanced t))
 
-  (use-package company-box
-    :hook (company-mode . company-box-mode)
-    :config
-    (setq company-box-backends-colors nil
-          company-box-icons-alist 'company-box-icons-all-the-icons))
-
   ;; helm
   (with-eval-after-load 'helm
     (defun helm-persistent-action-display-window (&optional split-onewindow)
@@ -667,9 +661,10 @@ before packages are loaded."
 
   ;; common-lisp
   (use-package slime-repl-ansi-color
-    :config
-    (with-eval-after-load 'common-lisp-mode
-      (slime-repl-ansi-on)))
+    :after 'lisp-mode
+    :config (slime-repl-ansi-on))
+  (with-eval-after-load 'lisp-mode
+    (load (expand-file-name "~/.roswell/helper.el")))
 
   ;; Scala
   (with-eval-after-load 'scala-mode
