@@ -37,8 +37,9 @@ This function should only modify configuration layer settings."
      sql
      (lsp :variables
           lsp-navigation 'peek
-          lsp-ui-doc-enable nil
+          lsp-ui-doc-enable t
           lsp-ui-sideline-enable t)
+     dap
      yaml
      (go :variables
          go-use-gometalinter t
@@ -622,12 +623,11 @@ before packages are loaded."
      "C-j" #'lsp-ui-peek--select-next
      "C-k" #'lsp-ui-peek--select-prev
      "C-l" #'lsp-ui-peek--select-next-file))
+
   (with-eval-after-load 'lsp
     (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
-      "gb" #'lsp-ui-peek-jump-backward))
-
-  (with-eval-after-load 'lsp-mode
-    (setq company-lsp-cache-candidates 'auto))
+      "gb" #'lsp-ui-peek-jump-backward)
+    (setq company-lsp-cache-candidates '))
 
   ;;==================================================================================================
   ;; Language setting
