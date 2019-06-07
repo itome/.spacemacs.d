@@ -627,7 +627,7 @@ before packages are loaded."
   (with-eval-after-load 'lsp
     (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
       "gb" #'lsp-ui-peek-jump-backward)
-    (setq company-lsp-cache-candidates '))
+    (setq company-lsp-cache-candidates 'auto))
 
   ;;==================================================================================================
   ;; Language setting
