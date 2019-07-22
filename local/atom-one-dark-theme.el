@@ -229,7 +229,7 @@
   `(ivy-minibuffer-match-face-2 ((t (:inherit ivy-minibuffer-match-face-1 :background ,atom-one-dark-black :foreground ,atom-one-dark-purple :weight semi-bold))))
   `(ivy-minibuffer-match-face-3 ((t (:inherit ivy-minibuffer-match-face-2 :background ,atom-one-dark-black :foreground ,atom-one-dark-green :weight semi-bold))))
   `(ivy-minibuffer-match-face-4 ((t (:inherit ivy-minibuffer-match-face-2 :background ,atom-one-dark-black :foreground ,atom-one-dark-orange-2 :weight semi-bold))))
-  `(ivy-minibuffer-match-highlight ((t (:foreground ,atom-one-dark-blue))))
+  `(ivy-minibuffer-match-highlight ((t (:inherit ivy-current-match))))
   `(ivy-modified-buffer ((t (:inherit default :foreground ,atom-one-dark-orange-1))))
   `(ivy-virtual ((t (:inherit font-lock-builtin-face :slant italic))))
 
