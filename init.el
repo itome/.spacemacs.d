@@ -58,7 +58,8 @@ This function should only modify configuration layer settings."
            dart-sdk-path "~/flutter/bin/cache/dart-sdk/"
            dart-analysis-server t)
      (python :variables
-             python-backend 'lsp)
+             python-backend 'lsp
+             python-lsp-server 'pyls)
      elixir
      phoenix
      prettier
