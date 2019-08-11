@@ -510,6 +510,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
                 truncate-partial-width-windows t)
   (if (fboundp 'mac-auto-operator-composition-mode)
       (mac-auto-operator-composition-mode))
+  (set-fontset-font t 'japanese-jisx0208 "Source Han Sans")
   )
 
 (defun dotspacemacs/user-load ()
