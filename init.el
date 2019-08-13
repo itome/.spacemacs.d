@@ -126,6 +126,7 @@ This function should only modify configuration layer settings."
                                       switch-buffer-functions
                                       exec-path-from-shell
                                       all-the-icons-ivy
+                                      mozc
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -592,6 +593,13 @@ before packages are loaded."
           auto-save-buffers-enhanced-exclude-regexps '("^not-save-file" "\\.ignore$")
           auto-save-buffers-enhanced-quiet-save-p t)
     (auto-save-buffers-enhanced t))
+
+  ;; mozc
+  (use-package mozc
+    :config
+    (set-language-environment "Japanese")
+    (setq default-input-method "japanese-mozc")
+    (prefer-coding-system 'utf-8))
 
   ;; helm
   (with-eval-after-load 'helm
