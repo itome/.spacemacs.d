@@ -71,8 +71,6 @@ This function should only modify configuration layer settings."
            rust-backend 'lsp)
      (clojure :variables
               clojure-enable-clj-refactor t
-              cider-repl-display-help-banner nil
-              cider-repl-display-in-current-window t
               cider-repl-use-clojure-font-lock t
               cider-repl-use-pretty-printing t
               cider-repl-result-prefix ";;=> "
