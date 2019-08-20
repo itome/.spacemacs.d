@@ -90,9 +90,9 @@ This function should only modify configuration layer settings."
                   swift-sourcekit-toolchain-path "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain")
      docker
 
-     (ivy :variables
-          ivy-height 25
-          ivy-enable-advanced-buffer-information t)
+     (helm :variables
+           helm-no-header t
+           spacemacs-helm-rg-max-column-number 1024)
      (auto-completion
       :variables
       auto-completion-enable-snippets-in-popup t
@@ -108,8 +108,7 @@ This function should only modify configuration layer settings."
      git
      markdown
      multiple-cursors
-     org
-     )
+     org)
 
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -123,7 +122,6 @@ This function should only modify configuration layer settings."
                                       smart-backspace
                                       switch-buffer-functions
                                       exec-path-from-shell
-                                      all-the-icons-ivy
                                       mozc
                                       )
 
@@ -606,19 +604,6 @@ before packages are loaded."
        If SPLIT-ONEWINDOW is non-`nil' window is split in persistent action."
       (with-helm-window
         (setq helm-persistent-action-display-window (get-mru-window)))))
-
-  ;; ivy
-  (use-package all-the-icons-ivy
-    :ensure t
-    :config
-    (all-the-icons-ivy-setup)
-    (setq all-the-icons-ivy-file-commands
-          '(counsel-find-file
-            counsel-file-jump
-            counsel-recentf
-            counsel-projectile-find-file
-            counsel-projectile-find-dir)))
-
 
   ;; treemacs
   (with-eval-after-load 'treemacs
