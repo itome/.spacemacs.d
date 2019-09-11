@@ -103,7 +103,8 @@ This function should only modify configuration layer settings."
                       version-control-diff-tool 'git-gutter)
      (syntax-checking :variables
                       syntax-checking-enable-tooltips nil)
-     treemacs
+     (treemacs :variables
+               treemacs-use-follow-mode t)
      git
      markdown
      multiple-cursors
