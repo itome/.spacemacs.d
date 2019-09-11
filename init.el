@@ -92,9 +92,7 @@ This function should only modify configuration layer settings."
                   swift-sourcekit-toolchain-path "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain")
      docker
 
-     (helm :variables
-           helm-no-header t
-           spacemacs-helm-rg-max-column-number 1024)
+     (ivy :variables ivy-enable-advanced-buffer-information t)
      (auto-completion
       :variables
       auto-completion-enable-snippets-in-popup t
@@ -106,7 +104,6 @@ This function should only modify configuration layer settings."
      (syntax-checking :variables
                       syntax-checking-enable-tooltips nil)
      treemacs
-     better-defaults
      git
      markdown
      multiple-cursors
@@ -125,6 +122,7 @@ This function should only modify configuration layer settings."
                                       switch-buffer-functions
                                       exec-path-from-shell
                                       mozc
+                                      all-the-icons-ivy
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -248,7 +246,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(farmhouse-dark)
+   dotspacemacs-themes '(spacemacs-dark)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -257,7 +255,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(all-the-icons :separator slant)
+   dotspacemacs-mode-line-theme '(doom)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -600,13 +598,10 @@ before packages are loaded."
     (setq default-input-method "japanese-mozc")
     (prefer-coding-system 'utf-8))
 
-  ;; helm
-  (with-eval-after-load 'helm
-    (defun helm-persistent-action-display-window (&optional split-onewindow)
-      "Return the window that will be used for persistent action.
-       If SPLIT-ONEWINDOW is non-`nil' window is split in persistent action."
-      (with-helm-window
-        (setq helm-persistent-action-display-window (get-mru-window)))))
+  (use-package all-the-icons-ivy
+    :ensure t
+    :config
+    (all-the-icons-ivy-setup))
 
   ;; treemacs
   (with-eval-after-load 'treemacs
