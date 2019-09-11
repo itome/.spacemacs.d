@@ -541,6 +541,10 @@ before packages are loaded."
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
 
+  ;; scroll margins
+  (setq scroll-margin 3)
+  (setq smooth-scroll-margin 3)
+
   ;;==================================================================================================
   ;; keybind
   ;;==================================================================================================
