@@ -11,7 +11,6 @@
 
 ;;; Code:
 
-;; TODO: offer lsp integration
 (defconst itome-dart-packages
   '(
     company
@@ -24,13 +23,7 @@
     :mode "\\.dart\\'"
     :init
     (progn
-      (spacemacs/add-to-hook 'dart-mode-hook '(spacemacs//dart-setup-backend))
-      (spacemacs/set-leader-keys-for-major-mode 'dart-mode
-        "==" 'dart-format)
-
-      (evil-define-key 'insert dart-mode-map
-        (kbd "<tab>") 'dart-expand
-        (kbd "C-<tab>") 'dart-expand-parameters))))
+      (spacemacs/add-to-hook 'dart-mode-hook '(spacemacs//dart-setup-backend)))))
 
 (defun itome-dart/post-init-company ()
   (spacemacs//dart-setup-company))

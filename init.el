@@ -37,7 +37,7 @@ This function should only modify configuration layer settings."
      sql
      (lsp :variables
           lsp-navigation 'peek
-          lsp-ui-doc-enable t
+          lsp-ui-doc-enable nil
           lsp-ui-sideline-enable t)
      dap
      yaml
@@ -104,7 +104,8 @@ This function should only modify configuration layer settings."
                       version-control-diff-tool 'git-gutter)
      (syntax-checking :variables
                       syntax-checking-enable-tooltips nil)
-     treemacs
+     (treemacs :variables
+               treemacs-use-follow-mode t)
      git
      markdown
      multiple-cursors
@@ -265,7 +266,6 @@ It should only modify the values of Spacemacs settings."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 13.0
                                :weight normal
                                :width normal)
 
