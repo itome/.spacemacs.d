@@ -67,6 +67,7 @@ This function should only modify configuration layer settings."
      haskell
      emacs-lisp
      common-lisp
+     (java :variables java-backend 'lsp)
      (rust :variables
            rust-backend 'lsp)
      (clojure :variables
@@ -651,7 +652,16 @@ before packages are loaded."
   (with-eval-after-load 'lsp
     (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
       "gb" #'lsp-ui-peek-jump-backward)
-    (setq company-lsp-cache-candidates 'auto))
+    (setq company-lsp-cache-candidates 'auto
+          company-lsp-async t
+          company-lsp-enable-snippet t
+          company-lsp-enable-recompletion t))
+
+  ;; company
+  (use-package company-box
+    :hook (company-mode . company-box-mode)
+    :config
+    (setq company-box-icons-alist 'company-box-icons-all-the-icons))
 
   ;;==================================================================================================
   ;; Language setting
