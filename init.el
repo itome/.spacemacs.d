@@ -67,7 +67,6 @@ This function should only modify configuration layer settings."
      haskell
      emacs-lisp
      common-lisp
-     (java :variables java-backend 'lsp)
      (rust :variables
            rust-backend 'lsp)
      (clojure :variables
@@ -93,7 +92,7 @@ This function should only modify configuration layer settings."
                   swift-sourcekit-toolchain-path "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain")
      docker
 
-     (ivy :variables ivy-enable-advanced-buffer-information t)
+     helm
      (auto-completion
       :variables
       auto-completion-enable-snippets-in-popup t
@@ -257,7 +256,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(doom)
+   dotspacemacs-mode-line-theme '(all-the-icons :separator wave :separator-scale 1.5)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
