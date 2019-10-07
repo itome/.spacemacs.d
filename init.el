@@ -124,6 +124,7 @@ This function should only modify configuration layer settings."
                                       exec-path-from-shell
                                       mozc
                                       all-the-icons-ivy
+                                      doom-themes
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -572,10 +573,6 @@ before packages are loaded."
   (use-package atom-one-dark-theme
     :init (load-theme 'atom-one-dark t))
 
-  ;; treemacs
-  (with-eval-after-load 'treemacs
-    (setq treemacs-no-png-images t))
-
   ;;==================================================================================================
   ;; Utility settings
   ;;==================================================================================================
@@ -609,7 +606,7 @@ before packages are loaded."
 
   ;; treemacs
   (with-eval-after-load 'treemacs
-    (setq treemacs-no-png-images t)
+    (doom-themes-treemacs-config)
     (define-key evil-treemacs-state-map (kbd "pd")  #'treemacs-remove-project-from-workspace)
     (define-key evil-treemacs-state-map (kbd "pa") #'treemacs-add-project-to-workspace)
     (define-key evil-treemacs-state-map (kbd "pr") #'treemacs-rename-project))
