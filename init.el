@@ -104,7 +104,7 @@ This function should only modify configuration layer settings."
      (syntax-checking :variables
                       syntax-checking-enable-tooltips nil)
      (treemacs :variables
-               treemacs-use-follow-mode t)
+               treemacs-use-follow-mode nil)
      git
      markdown
      multiple-cursors
