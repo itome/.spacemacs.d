@@ -118,7 +118,6 @@ This function should only modify configuration layer settings."
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
-                                      company-box
                                       smart-backspace
                                       switch-buffer-functions
                                       exec-path-from-shell
@@ -652,12 +651,6 @@ before packages are loaded."
           company-lsp-async t
           company-lsp-enable-snippet t
           company-lsp-enable-recompletion t))
-
-  ;; company
-  (use-package company-box
-    :hook (company-mode . company-box-mode)
-    :config
-    (setq company-box-icons-alist 'company-box-icons-all-the-icons))
 
   ;;==================================================================================================
   ;; Language setting
