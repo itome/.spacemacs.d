@@ -247,7 +247,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark)
+   dotspacemacs-themes '(doom-one)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -256,7 +256,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(all-the-icons :separator wave :separator-scale 1.5)
+   dotspacemacs-mode-line-theme '(doom)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -565,14 +565,6 @@ before packages are loaded."
     "gb" 'ensime-pop-find-definition-stack)
 
   ;;==================================================================================================
-  ;; UI settings
-  ;;==================================================================================================
-
-  ;; theme
-  (use-package atom-one-dark-theme
-    :init (load-theme 'atom-one-dark t))
-
-  ;;==================================================================================================
   ;; Utility settings
   ;;==================================================================================================
 
@@ -617,23 +609,7 @@ before packages are loaded."
     (fringe-helper-define 'git-gutter-fr:modified '(center repeated)
       "XX......")
     (fringe-helper-define 'git-gutter-fr:deleted '(center repeated)
-      "XX......")
-    (add-hook 'switch-buffer-functions
-              (lambda (prev cur) (git-gutter:update-all-windows))))
-
-  ;; spaceline-all-the-icons
-  (with-eval-after-load 'spaceline-all-the-icons
-    (setq spaceline-all-the-icons-icon-set-modified 'circle)
-    (setq spaceline-all-the-icons-icon-set-git-ahead 'commit)
-    (setq spaceline-all-the-icons-highlight-file-name t)
-    (setq spaceline-responsive nil)
-    (setq spaceline-all-the-icons-icon-set-flycheck-slim 'outline)
-    (spaceline-toggle-all-the-icons-eyebrowse-workspace-off)
-    (spaceline-toggle-all-the-icons-minor-modes-off)
-    (spaceline-toggle-all-the-icons-projectile-off)
-    (spaceline-toggle-all-the-icons-dedicated-off)
-    (spaceline-toggle-all-the-icons-vc-icon-off)
-    (spaceline-toggle-all-the-icons-window-number-off))
+      "XX......"))
 
   ;; lsp-mode
   (with-eval-after-load 'lsp-ui
