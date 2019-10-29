@@ -55,8 +55,7 @@ This function should only modify configuration layer settings."
                  typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
      (itome-dart :variables
-           dart-sdk-path "~/flutter/bin/cache/dart-sdk/"
-           dart-analysis-server t)
+           dart-analysis-server nil)
      (python :variables
              python-backend 'lsp
              python-lsp-server 'pyls)
@@ -123,7 +122,6 @@ This function should only modify configuration layer settings."
                                       exec-path-from-shell
                                       mozc
                                       all-the-icons-ivy
-                                      doom-themes
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -501,7 +499,6 @@ It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   (add-to-list 'load-path "~/.spacemacs.d/local/")
-  (add-to-list 'custom-theme-load-path "~/.spacemacs.d/local/")
   (add-to-list 'configuration-layer-elpa-archives '("melpa-stable" . "stable.melpa.org/packages/"))
   (add-to-list 'package-pinned-packages '(ensime . "melpa-stable"))
   (setq-default truncate-lines t
@@ -665,10 +662,6 @@ before packages are loaded."
           flycheck-gometalinter-enable-linters '("golint")
           gofmt-command "goimports"
           godoc-at-point-function `godoc-gogetdoc))
-
-  ;; dart
-  (with-eval-after-load 'dart-mode
-    (setq lsp-dart-sdk-dir "~/Downloads/dart-sdk"))
 
   ;; common-lisp
   (use-package slime-repl-ansi-color
