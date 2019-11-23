@@ -91,7 +91,7 @@ This function should only modify configuration layer settings."
                   swift-sourcekit-toolchain-path "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain")
      docker
 
-     helm
+     ivy
      (auto-completion
       :variables
       auto-completion-enable-snippets-in-popup t
@@ -498,22 +498,13 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
-  (add-to-list 'load-path "~/.spacemacs.d/local/")
-  (add-to-list 'configuration-layer-elpa-archives '("melpa-stable" . "stable.melpa.org/packages/"))
-  (add-to-list 'package-pinned-packages '(ensime . "melpa-stable"))
-  (setq-default truncate-lines t
-                truncate-partial-width-windows t)
-  (if (fboundp 'mac-auto-operator-composition-mode)
-      (mac-auto-operator-composition-mode))
-  (set-fontset-font t 'japanese-jisx0208 "Source Han Sans")
-  )
+  (add-to-list 'load-path "~/.spacemacs.d/local/"))
 
 (defun dotspacemacs/user-load ()
   "Library to load while dumping.
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
-dump."
-  )
+dump.")
 
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
@@ -533,10 +524,6 @@ before packages are loaded."
 
   ;; diable tilde
   (spacemacs/toggle-vi-tilde-fringe-off)
-
-  ;; load env variables
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize))
 
   ;; scroll margins
   (setq scroll-margin 3)
@@ -656,13 +643,6 @@ before packages are loaded."
      web-mode-code-indent-offset 2
      web-mode-attr-indent-offset 2))
 
-  ;; go
-  (with-eval-after-load 'go-mode
-    (setq flycheck-gometalinter-disable-all t
-          flycheck-gometalinter-enable-linters '("golint")
-          gofmt-command "goimports"
-          godoc-at-point-function `godoc-gogetdoc))
-
   ;; common-lisp
   (use-package slime-repl-ansi-color
     :after 'lisp-mode
@@ -672,8 +652,7 @@ before packages are loaded."
 
   ;; Scala
   (with-eval-after-load 'scala-mode
-    (setq ensime-startup-notification nil))
-  )
+    (setq ensime-startup-notification nil)))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
