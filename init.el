@@ -556,11 +556,11 @@ before packages are loaded."
   ;; git-gutter
   (with-eval-after-load 'git-gutter
     (fringe-helper-define 'git-gutter-fr:added '(center repeated)
-                          "XX......")
+      "XXXX....")
     (fringe-helper-define 'git-gutter-fr:modified '(center repeated)
-                          "XX......")
+      "XXXX....")
     (fringe-helper-define 'git-gutter-fr:deleted '(center repeated)
-                          "XX......"))
+      "XXXX...."))
 
   ;; lsp-mode
   (with-eval-after-load 'lsp-ui
