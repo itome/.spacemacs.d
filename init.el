@@ -38,6 +38,7 @@ This function should only modify configuration layer settings."
      (lsp :variables
           lsp-navigation 'peek
           lsp-ui-doc-enable nil
+          lsp-enable-on-type-formatting nil
           lsp-ui-sideline-enable t)
      dap
      yaml
@@ -54,8 +55,10 @@ This function should only modify configuration layer settings."
                  typescript-backend 'lsp
                  typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
-     (itome-dart :variables
-                 dart-analysis-server nil)
+     (dart :variables
+           dart-server-sdk-path "~/flutter/bin/cache/dart-sdk/"
+           dart-server-enable-analysis-server nil
+           dart-server-format-on-save nil)
      (python :variables
              python-backend 'lsp
              python-lsp-server 'pyls)
