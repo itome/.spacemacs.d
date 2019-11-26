@@ -38,7 +38,10 @@ This function should only modify configuration layer settings."
           lsp-navigation 'peek
           lsp-ui-doc-enable nil
           lsp-enable-on-type-formatting nil
-          lsp-ui-sideline-enable t
+          lsp-before-save-edits nil
+          lsp-enable-completion-at-point nil
+          lsp-keep-workspace-alive nil
+          lsp-eldoc-render-all nil
           company-lsp-cache-candidates 'auto
           company-lsp-async t
           company-lsp-enable-snippet t
