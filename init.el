@@ -88,8 +88,7 @@ This function should only modify configuration layer settings."
               :packages
               (not cider-eval-sexp-fu helm-gtags parinfer))
      (scala :variables
-            scala-auto-insert-asterisk-in-comments t
-            scala-auto-start-ensime t)
+            scala-backend 'scala-metals)
      (ruby :variables
            ruby-backend 'lsp)
      docker
