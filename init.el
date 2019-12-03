@@ -62,7 +62,7 @@ This function should only modify configuration layer settings."
                  typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
      (dart :variables
-           dart-server-sdk-path "~/flutter/bin/cache/dart-sdk/"
+           lsp-dart-analysis-sdk-dir "~/Downloads/dart-sdk/"
            dart-server-enable-analysis-server nil
            dart-server-format-on-save nil)
      (python :variables
@@ -131,7 +131,7 @@ This function should only modify configuration layer settings."
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(smartparens)
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -528,6 +528,7 @@ before packages are loaded."
 
   (setq scroll-margin 3)
   (setq smooth-scroll-margin 3)
+  (electric-pair-mode 1)
 
   ;;==================================================================================================
   ;; Utility settings
