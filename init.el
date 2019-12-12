@@ -125,6 +125,7 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
                                       smart-backspace
+                                      editorconfig
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -549,6 +550,12 @@ before packages are loaded."
           auto-save-buffers-enhanced-quiet-save-p t)
     (auto-save-buffers-enhanced t))
 
+  ;; editorconfig
+  (use-package editorconfig
+    :ensure t
+    :config
+    (editorconfig-mode 1))
+
   ;; treemacs
   (with-eval-after-load 'treemacs
     (doom-themes-treemacs-config)
@@ -584,7 +591,8 @@ before packages are loaded."
 
   ;; typescript
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-tsx-mode))
-  )
+  (with-eval-after-load 'web-mode
+    (setq web-mode-enable-auto-quoting nil)))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
