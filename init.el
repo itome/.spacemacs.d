@@ -59,6 +59,8 @@ This function should only modify configuration layer settings."
      vue
      (typescript :variables
                  typescript-backend 'lsp
+                 typescript-linter 'eslint
+                 typescript-lsp-linter nil
                  typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
      (dart :variables
