@@ -60,7 +60,7 @@ This function should only modify configuration layer settings."
      (typescript :variables
                  typescript-backend 'lsp
                  typescript-linter 'eslint
-                 typescript-lsp-linter nil
+                 typescript-lsp-linter t
                  typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
      (dart :variables
