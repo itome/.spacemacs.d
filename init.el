@@ -126,7 +126,7 @@ This function should only modify configuration layer settings."
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(
-                                      smart-backspace
+                                      exec-path-from-shell
                                       editorconfig
                                       )
 
@@ -537,11 +537,13 @@ before packages are loaded."
   ;; Utility settings
   ;;==================================================================================================
 
-  ;; smart backspace setting
-  (use-package smart-backspace
-    :config
-    (define-key evil-insert-state-map [?\C-?] 'smart-backspace)
-    (define-key key-translation-map [?\C-h] [?\C-?]))
+  (define-key evil-insert-state-map [?\C-?] 'delete-backward-char)
+  (define-key key-translation-map [?\C-h] [?\C-?])
+
+  (use-package exec-path-from-shell
+    :init
+    (when (memq window-system '(mac ns x))
+      (exec-path-from-shell-initialize)))
 
   ;; auto-save-settings
   (use-package auto-save-buffers-enhanced
