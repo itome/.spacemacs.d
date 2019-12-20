@@ -99,6 +99,9 @@ This function should only modify configuration layer settings."
      docker
 
      (ivy :variables
+          ivy-re-builders-alist '((swiper . regexp-quote)
+                                  (t      . ivy--regex-fuzzy))
+          ivy-initial-inputs-alist nil
           ivy-enable-advanced-buffer-information t)
 
      (auto-completion :variables
