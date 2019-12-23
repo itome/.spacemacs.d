@@ -64,9 +64,8 @@ This function should only modify configuration layer settings."
                  typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
      (dart :variables
-           lsp-dart-analysis-sdk-dir "~/Downloads/dart-sdk/"
-           dart-server-enable-analysis-server nil
-           dart-server-format-on-save nil)
+           dart-backend 'lsp
+           lsp-dart-analysis-sdk-dir "~/Downloads/dart-sdk/")
      (python :variables
              python-backend 'lsp
              python-lsp-server 'pyls)
