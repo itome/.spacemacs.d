@@ -99,6 +99,7 @@ This function should only modify configuration layer settings."
 
      (ivy :variables
           ivy-re-builders-alist '((swiper . regexp-quote)
+                                  (counsel-rg . regexp-quote)
                                   (t      . ivy--regex-fuzzy))
           ivy-initial-inputs-alist nil
           ivy-enable-advanced-buffer-information t)
