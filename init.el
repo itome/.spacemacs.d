@@ -535,6 +535,7 @@ before packages are loaded."
   (setq scroll-margin 3)
   (setq smooth-scroll-margin 3)
   (electric-pair-mode 1)
+  (global-auto-revert-mode 1)
 
   ;;==================================================================================================
   ;; Utility settings
@@ -578,6 +579,10 @@ before packages are loaded."
       "XXXX....")
     (fringe-helper-define 'git-gutter-fr:deleted '(center repeated)
       "XXXX...."))
+
+  ;; magit
+  (with-eval-after-load 'magit
+    (setq magit-auto-revert-mode t))
 
   ;; lsp-mode
   (with-eval-after-load 'lsp-ui
