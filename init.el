@@ -534,6 +534,8 @@ before packages are loaded."
 
   (setq scroll-margin 3)
   (setq smooth-scroll-margin 3)
+  (setq mac-option-modifier 'super)
+  (setq mac-command-modifier 'meta)
   (electric-pair-mode 1)
   (global-auto-revert-mode 1)
 
