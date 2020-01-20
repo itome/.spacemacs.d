@@ -42,10 +42,10 @@ This function should only modify configuration layer settings."
           lsp-enable-completion-at-point nil
           lsp-keep-workspace-alive nil
           lsp-eldoc-render-all nil
-          company-lsp-cache-candidates 'auto
           company-lsp-async t
           company-lsp-enable-snippet t
-          company-lsp-enable-recompletion t)
+          company-lsp-cache-candidates nil
+          company-lsp-enable-recompletion nil)
      dap
      yaml
      (go :variables
@@ -115,6 +115,9 @@ This function should only modify configuration layer settings."
                       syntax-checking-enable-tooltips nil)
      (treemacs :variables
                treemacs-use-follow-mode nil)
+     (spell-checking :variables
+                     enable-flyspell-auto-completion t
+                     ispell-program-name "aspell")
      git
      markdown
      multiple-cursors
