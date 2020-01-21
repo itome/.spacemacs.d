@@ -116,9 +116,6 @@ This function should only modify configuration layer settings."
                       syntax-checking-enable-tooltips nil)
      (treemacs :variables
                treemacs-use-follow-mode nil)
-     (spell-checking :variables
-                     enable-flyspell-auto-completion t
-                     ispell-program-name "aspell")
      git
      markdown
      multiple-cursors
