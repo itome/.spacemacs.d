@@ -116,6 +116,9 @@ This function should only modify configuration layer settings."
                       syntax-checking-enable-tooltips nil)
      (treemacs :variables
                treemacs-use-follow-mode nil)
+     (spell-checking :variables
+                     enable-flyspell-auto-completion t
+                     ispell-program-name "aspell")
      git
      markdown
      multiple-cursors
@@ -132,7 +135,6 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages '(
                                       exec-path-from-shell
                                       editorconfig
-                                      hasklig-mode
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -274,7 +276,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-colorize-cursor-according-to-state t
 
    ;; Default font or prioritized list of fonts.
-   dotspacemacs-default-font '("Hasklig"
+   dotspacemacs-default-font '("Jetbrains Mono"
                                :weight normal
                                :width normal)
 
@@ -584,10 +586,6 @@ before packages are loaded."
     (fringe-helper-define 'git-gutter-fr:deleted '(center repeated)
       "XXXX...."))
 
-  ;; hasklig
-  (use-package hasklig-mode
-    :hook (prog-mode text-mode))
-
   ;; magit
   (with-eval-after-load 'magit
     (setq magit-auto-revert-mode t))
@@ -644,7 +642,7 @@ This function is called at the very end of Spacemacs initialization."
      ("XXX+" . "#dc752f")
      ("\\?\\?\\?+" . "#dc752f")))
  '(package-selected-packages
-   '(company-box epl git commander f dash s yasnippet-snippets org-mime lsp-ui flycheck-elsa cask ansi package-build shut-up doom-themes doom-modeline lsp-mode magit-popup pos-tip magit git-commit transient async org-plus-contrib yapfify yaml-mode ws-butler writeroom-mode with-editor winum which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-magit treemacs-evil toml-mode toc-org tide tagedit symon symbol-overlay string-inflection sql-indent spaceline-all-the-icons smex smeargle slime-company slim-mode shrink-path seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rjsx-mode restart-emacs rbenv rake rainbow-delimiters racer pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements persp-mode password-generator paradox overseer origami orgit org-projectile org-present org-pomodoro org-download org-cliplink org-bullets org-brain open-junk-file ob-elixir noflet nodejs-repl nameless mvn move-text mmm-mode minitest meghanada maven-test-mode markdown-toc magit-svn magit-gitflow lsp-treemacs lsp-python-ms lsp-java lsp-haskell lorem-ipsum livid-mode live-py-mode link-hint json-navigator js2-refactor js-doc ivy-yasnippet ivy-xref ivy-rich ivy-purpose ivy-hydra intero insert-shebang indent-guide importmagic impatient-mode hybrid-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-make haskell-snippets groovy-mode groovy-imports gradle-mode google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rust flycheck-pos-tip flycheck-package flycheck-mix flycheck-haskell flycheck-credo flycheck-bashate flx-ido flutter fish-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig dumb-jump dotenv-mode dockerfile-mode docker diminish diff-hl devdocs define-word dart-mode dap-mode dante cython-mode counsel-projectile counsel-css company-web company-tern company-statistics company-shell company-quickhelp company-lsp company-go company-ghci company-ghc company-cabal company-anaconda common-lisp-snippets column-enforce-mode cmm-mode clojure-snippets clj-refactor clean-aindent-mode chruby centered-cursor-mode cargo bundler browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-compile attrap alchemist aggressive-indent ace-link ac-ispell)))
+   '(company-box epl git commander f dash s yasnippet-snippets org-mime lsp-ui flycheck-elsa cask ansi package-build shut-up doom-themes doom-modeline lsp-mode magit-popup pos-tip magit git-commit transient async org-plus-contrib yapfify yaml-mode ws-butler writeroom-mode with-editor winum which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-magit treemacs-evil toml-mode toc-org tide tagedit symon symbol-overlay string-inflection sql-indent spaceline-all-the-icons smex smeargle slime-company slim-mode shrink-path seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rjsx-mode restart-emacs rbenv rake rainbow-delimiters racer pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements persp-mode password-generator paradox overseer origami orgit org-projectile org-present org-pomodoro org-download org-cliplink org-bullets org-brain open-junk-file ob-elixir noflet nodejs-repl nameless mvn move-text mmm-mode minitest meghanada maven-test-mode markdown-toc magit-svn magit-gitflow lsp-treemacs lsp-python-ms lsp-java lsp-haskell lorem-ipsum livid-mode live-py-mode link-hint json-navigator js2-refactor js-doc ivy-yasnippet ivy-xref ivy-rich ivy-purpose ivy-hydra intero insert-shebang indent-guide importmagic impatient-mode hybrid-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-make haskell-snippets groovy-mode groovy-imports gradle-mode google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rust flycheck-pos-tip flycheck-package flycheck-mix flycheck-haskell flycheck-credo flycheck-bashate flx-ido flutter fish-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu ensime emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode dockerfile-mode docker diminish diff-hl devdocs define-word dart-mode dap-mode dante cython-mode counsel-projectile counsel-css company-web company-tern company-statistics company-shell company-quickhelp company-lsp company-go company-ghci company-ghc company-cabal company-anaconda common-lisp-snippets column-enforce-mode cmm-mode clojure-snippets clj-refactor clean-aindent-mode chruby centered-cursor-mode cargo bundler browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-compile attrap alchemist aggressive-indent ace-link ac-ispell)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
