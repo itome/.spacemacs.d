@@ -537,6 +537,8 @@ before packages are loaded."
   (setq smooth-scroll-margin 3)
   (setq mac-option-modifier 'super)
   (setq mac-command-modifier 'meta)
+  (setq-default truncate-lines t)
+  (setq-default truncate-partial-width-windows t)
   (electric-pair-mode 1)
   (global-auto-revert-mode 1)
 
