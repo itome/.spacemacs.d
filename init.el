@@ -98,9 +98,8 @@ This function should only modify configuration layer settings."
      docker
 
      (ivy :variables
-          ivy-re-builders-alist '((swiper . regexp-quote)
-                                  (counsel-rg . regexp-quote)
-                                  (t      . ivy--regex-fuzzy))
+          ivy-re-builders-alist '((counsel-M-x . ivy--regex-fuzzy)
+                                  (t           . regexp-quote))
           ivy-initial-inputs-alist nil
           ivy-enable-advanced-buffer-information t)
 
@@ -545,6 +544,13 @@ before packages are loaded."
   (global-auto-revert-mode 1)
 
   ;;==================================================================================================
+  ;; Key bindings
+  ;;==================================================================================================
+  (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
+    "gb" #'lsp-ui-peek-jump-backward
+    "gg" #'lsp-ui-peek-find-definitions)
+
+  ;;==================================================================================================
   ;; Utility settings
   ;;==================================================================================================
 
@@ -600,10 +606,6 @@ before packages are loaded."
      "C-k" #'lsp-ui-peek--select-prev
      "C-l" #'lsp-ui-peek--select-next-file))
 
-  (with-eval-after-load 'lsp
-    (spacemacs/set-leader-keys-for-minor-mode 'lsp-mode
-      "gb" #'lsp-ui-peek-jump-backward))
-
   ;;==================================================================================================
   ;; Language setting
   ;;==================================================================================================
@@ -612,7 +614,6 @@ before packages are loaded."
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-tsx-mode))
   (with-eval-after-load 'web-mode
     (setq web-mode-enable-auto-quoting nil)))
-
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (defun dotspacemacs/emacs-custom-settings ()
