@@ -91,8 +91,6 @@ This function should only modify configuration layer settings."
               company-backends-cider-repl-mode-raw '((company-capf :with company-dabbrev-code))
               :packages
               (not cider-eval-sexp-fu helm-gtags parinfer))
-     (scala :variables
-            scala-backend 'scala-metals)
      (ruby :variables
            ruby-backend 'lsp)
      docker
