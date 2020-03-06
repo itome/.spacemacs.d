@@ -104,7 +104,6 @@ This function should only modify configuration layer settings."
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip 'manual
-                      auto-completion-use-company-box t
                       :disabled-for markdown git)
      (version-control :variables
                       version-control-diff-side 'left
