@@ -33,19 +33,15 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     (node :variables node-add-modules-path t)
      sql
      (lsp :variables
           lsp-navigation 'peek
           lsp-ui-doc-enable nil
           lsp-enable-on-type-formatting nil
           lsp-before-save-edits nil
-          lsp-enable-completion-at-point nil
           lsp-keep-workspace-alive nil
-          lsp-eldoc-render-all nil
-          company-lsp-async t
-          company-lsp-enable-snippet t
-          company-lsp-cache-candidates t
-          company-lsp-enable-recompletion nil)
+          lsp-eldoc-render-all nil)
      dap
      yaml
      (go :variables
@@ -56,7 +52,7 @@ This function should only modify configuration layer settings."
                  javascript-backend 'lsp
                  javascript-fmt-tool 'prettier)
      react
-     vue
+     (vue :variables vue-backend 'lsp)
      (typescript :variables
                  typescript-backend 'lsp
                  typescript-linter 'eslint
@@ -127,6 +123,9 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages '(
                                       exec-path-from-shell
                                       editorconfig
+                                      ivy-posframe
+                                      ivy-rich
+                                      all-the-icons-ivy-rich
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -576,7 +575,7 @@ before packages are loaded."
   ;; treemacs
   (with-eval-after-load 'treemacs
     (doom-themes-treemacs-config)
-    (define-key evil-treemacs-state-map (kbd "pd")  #'treemacs-remove-project-from-workspace)
+    (define-key evil-treemacs-state-map (kbd "pd") #'treemacs-remove-project-from-workspace)
     (define-key evil-treemacs-state-map (kbd "pa") #'treemacs-add-project-to-workspace)
     (define-key evil-treemacs-state-map (kbd "pr") #'treemacs-rename-project))
 
@@ -588,6 +587,28 @@ before packages are loaded."
       "XXXX....")
     (fringe-helper-define 'git-gutter-fr:deleted '(center repeated)
       "XXXX...."))
+
+  ;; ivy
+  (use-package ivy-posframe
+    :init
+    (setq ivy-posframe-display-functions-alist
+          '((swiper     . nil)
+            (counsel-rg . nil)
+            (counsel-ag . nil)
+            (t          . ivy-posframe-display-at-frame-center))
+          ivy-posframe-parameters
+          '((left-fringe . 8)
+            (right-fringe . 8)
+            (top-fringe . 8)
+            (bottom-fringe . 8)))
+    (ivy-posframe-mode 1))
+  (use-package all-the-icons-ivy-rich
+    :ensure t
+    :init (all-the-icons-ivy-rich-mode 1))
+  (use-package ivy-rich
+    :ensure t
+    :init (ivy-rich-mode 1))
+
 
   ;; magit
   (with-eval-after-load 'magit
@@ -602,6 +623,18 @@ before packages are loaded."
      "C-k" #'lsp-ui-peek--select-prev
      "C-l" #'lsp-ui-peek--select-next-file))
 
+  ;; vue-mode
+  ;; override original to enable diagnostic from lsp
+  (setq js2-mode-show-parse-errors nil)
+  (setq js2-mode-show-strict-warnings nil)
+  (defun spacemacs//vue-setup-lsp ()
+    "Setup lsp backend."
+    (if (configuration-layer/layer-used-p 'lsp)
+        (progn
+          (lsp))
+      (message (concat "`lsp' layer is not installed, "
+                       "please add `lsp' layer to your dotfile."))))
+
   ;;==================================================================================================
   ;; Language setting
   ;;==================================================================================================
@@ -610,6 +643,7 @@ before packages are loaded."
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-tsx-mode))
   (with-eval-after-load 'web-mode
     (setq web-mode-enable-auto-quoting nil)))
+
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (defun dotspacemacs/emacs-custom-settings ()
@@ -617,34 +651,4 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(evil-want-Y-yank-to-eol nil)
- '(hl-todo-keyword-faces
-   '(("TODO" . "#dc752f")
-     ("NEXT" . "#dc752f")
-     ("THEM" . "#2d9574")
-     ("PROG" . "#4f97d7")
-     ("OKAY" . "#4f97d7")
-     ("DONT" . "#f2241f")
-     ("FAIL" . "#f2241f")
-     ("DONE" . "#86dc2f")
-     ("NOTE" . "#b1951d")
-     ("KLUDGE" . "#b1951d")
-     ("HACK" . "#b1951d")
-     ("TEMP" . "#b1951d")
-     ("FIXME" . "#dc752f")
-     ("XXX+" . "#dc752f")
-     ("\\?\\?\\?+" . "#dc752f")))
- '(package-selected-packages
-   '(company-box epl git commander f dash s yasnippet-snippets org-mime lsp-ui flycheck-elsa cask ansi package-build shut-up doom-themes doom-modeline lsp-mode magit-popup pos-tip magit git-commit transient async org-plus-contrib yapfify yaml-mode ws-butler writeroom-mode with-editor winum which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-magit treemacs-evil toml-mode toc-org tide tagedit symon symbol-overlay string-inflection sql-indent spaceline-all-the-icons smex smeargle slime-company slim-mode shrink-path seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rjsx-mode restart-emacs rbenv rake rainbow-delimiters racer pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements persp-mode password-generator paradox overseer origami orgit org-projectile org-present org-pomodoro org-download org-cliplink org-bullets org-brain open-junk-file ob-elixir noflet nodejs-repl nameless mvn move-text mmm-mode minitest meghanada maven-test-mode markdown-toc magit-svn magit-gitflow lsp-treemacs lsp-python-ms lsp-java lsp-haskell lorem-ipsum livid-mode live-py-mode link-hint json-navigator js2-refactor js-doc ivy-yasnippet ivy-xref ivy-rich ivy-purpose ivy-hydra intero insert-shebang indent-guide importmagic impatient-mode hybrid-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-make haskell-snippets groovy-mode groovy-imports gradle-mode google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-rust flycheck-pos-tip flycheck-package flycheck-mix flycheck-haskell flycheck-credo flycheck-bashate flx-ido flutter fish-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu ensime emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode dockerfile-mode docker diminish diff-hl devdocs define-word dart-mode dap-mode dante cython-mode counsel-projectile counsel-css company-web company-tern company-statistics company-shell company-quickhelp company-lsp company-go company-ghci company-ghc company-cabal company-anaconda common-lisp-snippets column-enforce-mode cmm-mode clojure-snippets clj-refactor clean-aindent-mode chruby centered-cursor-mode cargo bundler browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-compile attrap alchemist aggressive-indent ace-link ac-ispell)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 )
