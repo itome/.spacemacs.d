@@ -60,8 +60,7 @@ This function should only modify configuration layer settings."
                  typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
      (dart :variables
-           dart-backend 'lsp
-           lsp-dart-sdk-dir "~/Downloads/dart-sdk/")
+           dart-backend 'lsp)
      (python :variables
              python-backend 'lsp
              python-lsp-server 'pyls)
@@ -87,8 +86,6 @@ This function should only modify configuration layer settings."
               company-backends-cider-repl-mode-raw '((company-capf :with company-dabbrev-code))
               :packages
               (not cider-eval-sexp-fu helm-gtags parinfer))
-     (scala :variables
-            scala-backend 'scala-metals)
      (ruby :variables
            ruby-backend 'lsp)
      docker
