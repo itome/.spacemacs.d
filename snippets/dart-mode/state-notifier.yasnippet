@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+# name: StateNotifier
+# key: stn
+# group: dart
+# expand-env: ((yas/indent-line 'fixed) (yas/wrap-around-region 'nil))
+# --
+
+part '`(file-name-base (buffer-file-name))`.freezed.dart';
+
+@freezed
+abstract class ${1:Name}State with _$$1State {
+  factory $1State({
+    $2,
+  }) = _$1State;
+
+  factory $1State.init() => $1State(
+        $3,
+      );
+}
+
+class $1Store extends StateNotifier<$1State> with LocatorMixin {
+  $1Store() : super($1State.init());
+}

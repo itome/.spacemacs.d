@@ -97,7 +97,7 @@ This function should only modify configuration layer settings."
           ivy-re-builders-alist '((counsel-M-x . ivy--regex-fuzzy)
                                   (t           . regexp-quote))
           ivy-initial-inputs-alist nil
-          ivy-enable-advanced-buffer-information t)
+          ivy-count-format "(%d/%d) ")
 
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t
