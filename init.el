@@ -55,7 +55,6 @@ This function should only modify configuration layer settings."
      (vue :variables vue-backend 'lsp)
      (typescript :variables
                  typescript-backend 'lsp
-                 typescript-linter 'eslint
                  typescript-lsp-linter t
                  typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
@@ -602,9 +601,6 @@ before packages are loaded."
             (top-fringe . 8)
             (bottom-fringe . 8)))
     (ivy-posframe-mode 1))
-  (use-package all-the-icons-ivy-rich
-    :ensure t
-    :init (all-the-icons-ivy-rich-mode 1))
   (use-package ivy-rich
     :ensure t
     :init (ivy-rich-mode 1))
@@ -625,8 +621,6 @@ before packages are loaded."
 
   ;; vue-mode
   ;; override original to enable diagnostic from lsp
-  (setq js2-mode-show-parse-errors nil)
-  (setq js2-mode-show-strict-warnings nil)
   (defun spacemacs//vue-setup-lsp ()
     "Setup lsp backend."
     (if (configuration-layer/layer-used-p 'lsp)
@@ -634,6 +628,17 @@ before packages are loaded."
           (lsp))
       (message (concat "`lsp' layer is not installed, "
                        "please add `lsp' layer to your dotfile."))))
+
+  ;; javascript/typescript
+  (setq js2-mode-show-parse-errors nil
+        js2-mode-show-strict-warnings nil
+        web-mode-code-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-markup-indent-offset 2
+        lsp-eslint-server-command
+        `("node"
+          ,(expand-file-name "/home/itome/.spacemacs.d/bin/eslintServer.js")
+          "--stdio"))
 
   ;;==================================================================================================
   ;; Language setting
