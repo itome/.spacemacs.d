@@ -619,16 +619,6 @@ before packages are loaded."
      "C-k" #'lsp-ui-peek--select-prev
      "C-l" #'lsp-ui-peek--select-next-file))
 
-  ;; vue-mode
-  ;; override original to enable diagnostic from lsp
-  (defun spacemacs//vue-setup-lsp ()
-    "Setup lsp backend."
-    (if (configuration-layer/layer-used-p 'lsp)
-        (progn
-          (lsp))
-      (message (concat "`lsp' layer is not installed, "
-                       "please add `lsp' layer to your dotfile."))))
-
   ;; javascript/typescript
   (setq js2-mode-show-parse-errors nil
         js2-mode-show-strict-warnings nil
@@ -637,7 +627,7 @@ before packages are loaded."
         web-mode-markup-indent-offset 2
         lsp-eslint-server-command
         `("node"
-          ,(expand-file-name "/home/itome/.spacemacs.d/bin/eslintServer.js")
+          ,(expand-file-name "~/.spacemacs.d/bin/eslintServer.js")
           "--stdio"))
 
   ;;==================================================================================================
@@ -656,4 +646,17 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vimrc-mode helm-gtags helm helm-core ggtags dactyl-mode counsel-gtags yasnippet-snippets yapfify yaml-mode ws-butler writeroom-mode winum which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toml-mode toc-org tide tagedit symon symbol-overlay string-inflection sql-indent spaceline-all-the-icons smex smeargle slime-company slim-mode seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rjsx-mode restart-emacs request rbenv rake rainbow-delimiters racer pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements password-generator paradox overseer origami orgit org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-bullets org-brain open-junk-file ob-elixir nodejs-repl nameless move-text mmm-mode minitest markdown-toc magit-svn magit-section magit-gitflow lsp-ui lsp-python-ms lsp-ivy lsp-haskell lorem-ipsum livid-mode live-py-mode link-hint json-navigator js2-refactor js-doc ivy-yasnippet ivy-xref ivy-purpose ivy-posframe ivy-hydra intero insert-shebang indent-guide importmagic impatient-mode hybrid-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-make haskell-snippets google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe gh-md fuzzy font-lock+ flycheck-rust flycheck-pos-tip flycheck-package flycheck-mix flycheck-haskell flycheck-elsa flycheck-credo flycheck-bashate flx-ido flutter fish-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emr emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-themes doom-modeline dockerfile-mode docker diminish devdocs define-word dart-mode dap-mode dante cython-mode counsel-projectile counsel-css company-web company-tern company-shell company-quickhelp company-go company-ghci company-ghc company-cabal company-anaconda common-lisp-snippets column-enforce-mode cmm-mode clojure-snippets clj-refactor clean-aindent-mode chruby centered-cursor-mode cargo bundler browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-compile attrap all-the-icons-ivy-rich alchemist aggressive-indent add-node-modules-path ace-link ac-ispell)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 )
