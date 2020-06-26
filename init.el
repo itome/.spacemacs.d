@@ -591,6 +591,11 @@ before packages are loaded."
   ;; ivy
   (use-package ivy-posframe
     :init
+    ;; posframe-hideをposframe-deleteで上書きする
+    (defun ivy-posframe-cleanup ()
+      "Cleanup ivy's posframe."
+      (when (posframe-workable-p)
+        (posframe-delete ivy-posframe-buffer)))
     (setq ivy-posframe-display-functions-alist
           '((swiper     . nil)
             (counsel-rg . nil)
@@ -605,11 +610,6 @@ before packages are loaded."
   (use-package ivy-rich
     :ensure t
     :init (ivy-rich-mode 1))
-
-
-  ;; magit
-  (with-eval-after-load 'magit
-    (setq magit-auto-revert-mode t))
 
   ;; lsp-mode
   (with-eval-after-load 'lsp-ui
