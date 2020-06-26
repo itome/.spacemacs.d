@@ -52,14 +52,17 @@ This function should only modify configuration layer settings."
                  javascript-backend 'lsp
                  javascript-fmt-tool 'prettier)
      react
-     (vue :variables vue-backend 'lsp)
+     (vue :variables
+          vue-backend 'lsp
+          lsp-vetur-validation-template nil)
      (typescript :variables
                  typescript-backend 'lsp
                  typescript-lsp-linter t
                  typescript-fmt-tool 'prettier)
      (html :variables web-fmt-tool 'prettier)
      (dart :variables
-           dart-backend 'lsp)
+           dart-backend 'lsp
+           lsp-dart-sdk-dir "~/Downloads/dart-sdk")
      (python :variables
              python-backend 'lsp
              python-lsp-server 'pyls)
