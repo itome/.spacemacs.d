@@ -71,6 +71,7 @@ This function should only modify configuration layer settings."
      emacs-lisp
      common-lisp
      (rust :variables
+           lsp-rust-server 'rust-analyzer
            rust-backend 'lsp)
      (clojure :variables
               clojure-enable-clj-refactor t
