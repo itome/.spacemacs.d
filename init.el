@@ -589,27 +589,9 @@ before packages are loaded."
       "XXXX...."))
 
   ;; ivy
-  (use-package ivy-posframe
-    :init
-    (setq ivy-posframe-display-functions-alist
-          '((swiper     . nil)
-            (counsel-rg . nil)
-            (counsel-ag . nil)
-            (t          . ivy-posframe-display-at-frame-center))
-          ivy-posframe-parameters
-          '((left-fringe . 8)
-            (right-fringe . 8)
-            (top-fringe . 8)
-            (bottom-fringe . 8)))
-    (ivy-posframe-mode 1))
   (use-package ivy-rich
     :ensure t
     :init (ivy-rich-mode 1))
-  ;; posframe-hideをposframe-deleteで上書きする
-  (defun ivy-posframe-cleanup ()
-    "Cleanup ivy's posframe."
-    (when (posframe-workable-p)
-      (posframe-delete ivy-posframe-buffer)))
 
   ;; lsp-mode
   (with-eval-after-load 'lsp-ui
