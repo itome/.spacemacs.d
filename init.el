@@ -44,6 +44,7 @@ This function should only modify configuration layer settings."
      (go :variables
          go-use-gometalinter t
          go-backend 'lsp
+         go-tab-width 4
          gofmt-command "goimports")
      (javascript :variables
                  javascript-backend 'lsp
