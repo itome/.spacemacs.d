@@ -71,6 +71,7 @@ This function should only modify configuration layer settings."
      haskell
      emacs-lisp
      common-lisp
+     nim
      (rust :variables
            lsp-rust-server 'rust-analyzer
            rust-backend 'lsp)
