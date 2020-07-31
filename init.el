@@ -72,6 +72,7 @@ This function should only modify configuration layer settings."
      emacs-lisp
      common-lisp
      nim
+     protobuf
      (rust :variables
            lsp-rust-server 'rust-analyzer
            rust-backend 'lsp)
