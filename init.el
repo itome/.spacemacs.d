@@ -577,6 +577,7 @@ before packages are loaded."
 
   ;; treemacs
   (with-eval-after-load 'treemacs
+    (setq doom-themes-treemacs-theme "doom-colors")
     (doom-themes-treemacs-config)
     (define-key evil-treemacs-state-map (kbd "pd") #'treemacs-remove-project-from-workspace)
     (define-key evil-treemacs-state-map (kbd "pa") #'treemacs-add-project-to-workspace)
