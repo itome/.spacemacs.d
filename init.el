@@ -33,7 +33,8 @@ This function should only modify configuration layer settings."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     vim
+     (vimscript :variables
+                vimscript-backend 'lsp)
      lua
      (node :variables node-add-modules-path t)
      sql
