@@ -59,7 +59,8 @@ This function should only modify configuration layer settings."
      (typescript :variables
                  typescript-backend 'lsp
                  typescript-lsp-linter t
-                 typescript-fmt-tool 'prettier)
+                 typescript-fmt-tool 'prettier
+                 typescript-linter 'eslint)
      (html :variables web-fmt-tool 'prettier)
      (dart :variables
            dart-backend 'lsp
@@ -275,6 +276,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font or prioritized list of fonts.
    dotspacemacs-default-font '("Jetbrains Mono"
+                               :size 13
                                :weight normal
                                :width normal)
 
@@ -610,20 +612,6 @@ before packages are loaded."
      "C-k" #'lsp-ui-peek--select-prev
      "C-l" #'lsp-ui-peek--select-next-file))
 
-  ;; javascript/typescript
-  (setq js2-mode-show-parse-errors nil
-        js2-mode-show-strict-warnings nil
-        web-mode-code-indent-offset 2
-        web-mode-css-indent-offset 2
-        web-mode-markup-indent-offset 2
-        lsp-eslint-server-command
-        `("node"
-          ,(expand-file-name "~/.spacemacs.d/bin/eslintServer.js")
-          "--stdio"))
-
-  ;; golang
-  (setenv "GO111MODULE" "on")
-
   ;;==================================================================================================
   ;; Language setting
   ;;==================================================================================================
@@ -632,6 +620,17 @@ before packages are loaded."
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-tsx-mode))
   (with-eval-after-load 'web-mode
     (setq web-mode-enable-auto-quoting nil)))
+  (with-eval-after-load 'typescript-tsx-mode
+    (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
+    (flycheck-add-mode 'javascript-eslint 'typescript-mode))
+  (setq js2-mode-show-parse-errors nil
+        js2-mode-show-strict-warnings nil
+        web-mode-code-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-markup-indent-offset 2)
+
+  ;; golang
+  (setenv "GO111MODULE" "on")
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
