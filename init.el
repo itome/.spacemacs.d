@@ -617,15 +617,13 @@ before packages are loaded."
   ;;==================================================================================================
 
   ;; typescript
-  (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-tsx-mode))
-  (with-eval-after-load 'web-mode
-    (setq web-mode-enable-auto-quoting nil)))
-  (with-eval-after-load 'typescript-tsx-mode
-    (flycheck-add-mode 'javascript-eslint 'typescript-tsx-mode)
-    (flycheck-add-mode 'javascript-eslint 'typescript-mode))
+  (spacemacs/set-leader-keys-for-major-mode 'typescript-tsx-mode
+    "="  'spacemacs/typescript-format)
+  (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-tsx-mode)))
   (setq js2-mode-show-parse-errors nil
         js2-mode-show-strict-warnings nil
         web-mode-code-indent-offset 2
+        web-mode-enable-auto-quoting nil
         web-mode-css-indent-offset 2
         web-mode-markup-indent-offset 2)
 
