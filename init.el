@@ -619,6 +619,8 @@ before packages are loaded."
   ;; typescript
   (spacemacs/set-leader-keys-for-major-mode 'typescript-tsx-mode
     "="  'spacemacs/typescript-format)
+  (setq lsp-clients-typescript-plugins
+        (vector (list :name "typescript-eslint-language-service")))
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-tsx-mode)))
   (setq js2-mode-show-parse-errors nil
         js2-mode-show-strict-warnings nil
