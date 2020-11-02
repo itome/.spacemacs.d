@@ -616,7 +616,6 @@ before packages are loaded."
   (slack-register-team
    :name "patra"
    :default t
-   :token "xoxs-9695459796-612744295250-1433117317316-c8047d57894a4d85a9a49e65548e7ff6d2f303021f2abe889d395c710e5eeac2"
    :subscribed-channels '(sec_develop))
 
   ;;==================================================================================================
