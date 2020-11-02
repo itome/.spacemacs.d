@@ -613,11 +613,6 @@ before packages are loaded."
      "C-k" #'lsp-ui-peek--select-prev
      "C-l" #'lsp-ui-peek--select-next-file))
 
-  (slack-register-team
-   :name "patra"
-   :default t
-   :subscribed-channels '(sec_develop))
-
   ;;==================================================================================================
   ;; Language setting
   ;;==================================================================================================
