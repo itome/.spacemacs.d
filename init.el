@@ -77,6 +77,7 @@ This function should only modify configuration layer settings."
      common-lisp
      nim
      protobuf
+     terraform
      (rust :variables
            lsp-rust-server 'rust-analyzer
            rust-backend 'lsp)
@@ -120,7 +121,7 @@ This function should only modify configuration layer settings."
      markdown
      multiple-cursors
      org
-     )
+     slack)
 
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -611,6 +612,12 @@ before packages are loaded."
      "C-j" #'lsp-ui-peek--select-next
      "C-k" #'lsp-ui-peek--select-prev
      "C-l" #'lsp-ui-peek--select-next-file))
+
+  (slack-register-team
+   :name "patra"
+   :default t
+   :token "xoxs-9695459796-612744295250-1433117317316-c8047d57894a4d85a9a49e65548e7ff6d2f303021f2abe889d395c710e5eeac2"
+   :subscribed-channels '(sec_develop))
 
   ;;==================================================================================================
   ;; Language setting
