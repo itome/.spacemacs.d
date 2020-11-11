@@ -522,7 +522,9 @@ It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (add-to-list 'package-archives
                '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-  (add-to-list 'load-path "~/.spacemacs.d/local/"))
+  (add-to-list 'load-path "~/.spacemacs.d/local/")
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  (add-to-list 'default-frame-alist '(ns-appearance . 'nil)))
 
 (defun dotspacemacs/user-load ()
   "Library to load while dumping.
