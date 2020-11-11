@@ -102,6 +102,7 @@ This function should only modify configuration layer settings."
           ivy-re-builders-alist '((counsel-M-x . ivy--regex-fuzzy)
                                   (t           . regexp-quote))
           ivy-initial-inputs-alist nil
+          ivy-enable-advanced-buffer-information t
           ivy-count-format "(%d/%d) ")
 
      (auto-completion :variables
@@ -130,12 +131,9 @@ This function should only modify configuration layer settings."
    ;; To use a local version of a package, use the `:location' property:
    ;; '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(
-                                      exec-path-from-shell
+   dotspacemacs-additional-packages '(exec-path-from-shell
                                       editorconfig
-                                      ivy-rich
-                                      all-the-icons-ivy-rich
-                                      )
+                                      ivy-posframe)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -582,6 +580,18 @@ before packages are loaded."
     :config
     (editorconfig-mode 1))
 
+  (use-package ivy-posframe
+    :init
+    (ivy-posframe-mode 1)
+    :config
+    (setq ivy-posframe-parameters
+          '((left-fringe . 8)
+            (right-fringe . 8))
+          ivy-posframe-display-functions-alist
+          '((swiper          . ivy-display-function-fallback)
+            (counsel-rg      . ivy-display-function-fallback)
+            (t               . ivy-posframe-display))))
+
   ;; treemacs
   (with-eval-after-load 'treemacs
     (setq doom-themes-treemacs-theme "doom-colors")
@@ -598,11 +608,6 @@ before packages are loaded."
       "XXXX....")
     (fringe-helper-define 'git-gutter-fr:deleted '(center repeated)
       "XXXX...."))
-
-  ;; ivy
-  (use-package ivy-rich
-    :ensure t
-    :init (ivy-rich-mode 1))
 
   ;; lsp-mode
   (with-eval-after-load 'lsp-ui
