@@ -119,6 +119,7 @@ This function should only modify configuration layer settings."
      (treemacs :variables
                treemacs-use-follow-mode nil)
      git
+     (plantuml :variables plantuml-jar-path "~/.spacemacs.d/bin/plantuml.jar")
      markdown
      multiple-cursors
      org
