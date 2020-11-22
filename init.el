@@ -63,8 +63,7 @@ This function should only modify configuration layer settings."
                  typescript-linter 'eslint)
      (html :variables web-fmt-tool 'prettier)
      (dart :variables
-           dart-backend 'lsp
-           lsp-dart-sdk-dir "~/Downloads/dart-sdk")
+           dart-backend 'lsp)
      (python :variables
              python-backend 'lsp
              python-lsp-server 'pyls)
