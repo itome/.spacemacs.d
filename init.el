@@ -32,7 +32,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(swift
+     csv
      (vimscript :variables
                 vimscript-backend 'lsp)
      lua
@@ -59,6 +60,7 @@ This function should only modify configuration layer settings."
      (typescript :variables
                  typescript-backend 'lsp
                  typescript-lsp-linter t
+                 lsp-typescript-format-enable nil
                  typescript-fmt-tool 'prettier
                  typescript-linter 'eslint)
      (html :variables web-fmt-tool 'prettier)
@@ -625,10 +627,10 @@ before packages are loaded."
   ;;==================================================================================================
 
   ;; typescript
+  (with-eval-after-load 'lsp-mode
+    (add-to-list 'lsp-client-packages 'lsp-tailwindcss))
   (spacemacs/set-leader-keys-for-major-mode 'typescript-tsx-mode
-    "="  'spacemacs/typescript-format)
-  (setq lsp-clients-typescript-plugins
-        (vector (list :name "typescript-eslint-language-service")))
+    "=b"  'spacemacs/typescript-format)
   (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-tsx-mode)))
   (setq js2-mode-show-parse-errors nil
         js2-mode-show-strict-warnings nil
@@ -653,7 +655,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(company-lua lua-mode vimrc-mode helm-gtags helm helm-core ggtags dactyl-mode counsel-gtags yasnippet-snippets yapfify yaml-mode ws-butler writeroom-mode winum which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toml-mode toc-org tide tagedit symon symbol-overlay string-inflection sql-indent spaceline-all-the-icons smex smeargle slime-company slim-mode seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rjsx-mode restart-emacs request rbenv rake rainbow-delimiters racer pytest pyenv-mode py-isort pug-mode prettier-js popwin pippel pipenv pip-requirements password-generator paradox overseer origami orgit org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-bullets org-brain open-junk-file ob-elixir nodejs-repl nameless move-text mmm-mode minitest markdown-toc magit-svn magit-section magit-gitflow lsp-ui lsp-python-ms lsp-ivy lsp-haskell lorem-ipsum livid-mode live-py-mode link-hint json-navigator js2-refactor js-doc ivy-yasnippet ivy-xref ivy-purpose ivy-posframe ivy-hydra intero insert-shebang indent-guide importmagic impatient-mode hybrid-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-make haskell-snippets google-translate golden-ratio godoctor go-tag go-rename go-impl go-guru go-gen-test go-fill-struct go-eldoc gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe gh-md fuzzy font-lock+ flycheck-rust flycheck-pos-tip flycheck-package flycheck-mix flycheck-haskell flycheck-elsa flycheck-credo flycheck-bashate flx-ido flutter fish-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu emr emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-themes doom-modeline dockerfile-mode docker diminish devdocs define-word dart-mode dap-mode dante cython-mode counsel-projectile counsel-css company-web company-tern company-shell company-quickhelp company-go company-ghci company-ghc company-cabal company-anaconda common-lisp-snippets column-enforce-mode cmm-mode clojure-snippets clj-refactor clean-aindent-mode chruby centered-cursor-mode cargo bundler browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-compile attrap all-the-icons-ivy-rich alchemist aggressive-indent add-node-modules-path ace-link ac-ispell)))
+   '(swift-mode yapfify yaml-mode ws-butler winum which-key wgrep web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toml-mode toc-org tide typescript-mode tagedit sql-indent spaceline powerline smex smeargle slime-company slime slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs request rbenv rake rainbow-delimiters racer pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el paradox origami orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-bullets open-junk-file ob-elixir nim-mode flycheck-nimsuggest commenter epc ctable concurrent deferred neotree move-text mmm-mode minitest markdown-toc magit-gitflow magit-popup macrostep lua-mode lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode linum-relative link-hint js2-refactor js2-mode js-doc ivy-posframe posframe ivy-hydra intero insert-shebang indent-guide hy-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-make haskell-snippets haml-mode google-translate golden-ratio go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flycheck-rust flycheck-pos-tip flycheck-nim flycheck-haskell flycheck-gometalinter flycheck-credo flycheck flx-ido flx fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu emmet-mode elisp-slime-nav editorconfig dumb-jump dockerfile-mode docker transient tablist json-mode docker-tramp json-snatcher json-reformat diminish diff-hl define-word dactyl-mode cython-mode counsel-projectile projectile counsel swiper company-web web-completion-data company-statistics company-shell company-quickhelp pos-tip company-go go-mode company-ghci company-ghc ghc haskell-mode company-cabal company-box frame-local dash-functional company-anaconda common-lisp-snippets column-enforce-mode coffee-mode cmm-mode clojure-snippets clj-refactor hydra inflections multiple-cursors paredit lv clean-aindent-mode cider sesman spinner queue parseedn clojure-mode parseclj a chruby cargo markdown-mode rust-mode bundler inf-ruby bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed async anaconda-mode pythonic f all-the-icons-ivy-rich all-the-icons ivy-rich ivy memoize alchemist s company elixir-mode pkg-info epl aggressive-indent adaptive-wrap ace-window ace-link avy ac-ispell auto-complete popup doom-themes dash)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
