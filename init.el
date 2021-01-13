@@ -135,7 +135,8 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(exec-path-from-shell
                                       editorconfig
-                                      ivy-posframe)
+                                      ivy-posframe
+                                      company-tabnine)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -545,6 +546,10 @@ before packages are loaded."
   (setq smooth-scroll-margin 3)
   (setq mac-option-modifier 'super)
   (setq mac-command-modifier 'meta)
+  (setq make-backup-files nil)
+  (setq auto-save-default nil)
+  (setq auto-save-list-file-prefix nil)
+  (setq create-lockfiles nil)
   (setq-default truncate-lines t)
   (setq-default truncate-partial-width-windows t)
   (electric-pair-mode 1)
@@ -595,6 +600,13 @@ before packages are loaded."
           '((swiper          . ivy-display-function-fallback)
             (counsel-rg      . ivy-display-function-fallback)
             (t               . ivy-posframe-display))))
+
+  ;; tabnine
+  ;; (use-package company-tabnine
+  ;;   :config
+  ;;   (spacemacs|add-company-backends
+  ;;     :backends company-tabnine
+  ;;     :modes go-mode rust-mode))
 
   ;; treemacs
   (with-eval-after-load 'treemacs
